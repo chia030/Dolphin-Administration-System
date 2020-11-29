@@ -1,111 +1,118 @@
+/* 
+ 
+ This is Chiara's edited version of the Member class! I had to do some changes because I couldn't work with the previous version... :(
+
+   What changed (29/11 @ 16:30) : 
+   
+      - added memDOB (date of birth);
+      - changed the variables to "mem<Variable>" so we don't get confused with the other classes
+      - added a method that will automatically calculate the age, comparing the DOB with the current date (it might need some fixing in the future depending on how we'll use it!)
+      - fixed the return statements in the getters so that they return the values of the object `` this.<variable> ``
+      - edited the constructor slightly, I will probably have to add more changes to it
+      - formatted all the getters and setters
+      - set memValidity to default to ``false`` when instantiated so no one will get away with payments
+      
+   TO DO:
+   
+      - format dates so they will be displayed nicely with only the info that we need ("dd-MM-yyyy")
+      - perhaps add a toString method? where will it be used?
+
+
+ */
+
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class Member {
 
-    private int ID;
-    private String name;
-    private int age; 
+    private int memID;
+    private String memName;
+    private LocalDate memDOB;
+    private int memAge; 
     private String address;
-    private String discipline;
-    private LocalDate regDate;
-    private String type;
-    private String ageRange;
-    private boolean validity;
-    private boolean activityLevel;
+    private String favDiscipline;
 
-    //added a simple constructor
-    public Member(int newID, String newName, int newAge, String newAddress, String newDiscipline, String newType, boolean newValidity, boolean newActivityLevel){
-      ID = newID;
-      name = newName;
-      age = newAge;
-      address = newAddress;
-      discipline = newDiscipline;
-      type = newType;
-      validity = newValidity;
-      activityLevel = newActivityLevel;
-      if (age < 19){
-         ageRange = "Junior";
-      }else ageRange = "Senior";
+    private LocalDate regDate;
+    private String memType;
+    private String ageRange;
+    private boolean memValidity = false;
+    private boolean activityLevel;
+    
+    public Member(int ID, String name, LocalDate birth, String address, String disc, String membership, boolean level) {
+    
+       this.memID = ID;
+       this.memName = name;
+       this.memDOB = birth;
+       this.address = address;
+       this.favDiscipline = disc;
+       this.memType = membership;
+       this.activityLevel = level;
+       
+       this.regDate = LocalDate.now();
+       this.setAge();
+       this.setAgeRange();
+       
+       //the validity will be set from the treasurer when they actually pay!!!
+    
+    }
+
+     
+    public void setID(int memID) { this.memID = memID; }
+    public int getID() { return this.memID; }
+
+    
+    public void setName(String memName) { this.memName = memName; }
+    public String getName() { return this.memName; }
+    
+
+    public void setDOB(LocalDate memDOB) { this.memDOB = memDOB; } 
+    public LocalDate getDOB() { return this.memDOB; }
+    
+    
+    public void setAddress(String address) { this.address = address; }
+    public String getAddress() { return this.address; }
+    
+    
+    public void setDiscipline(String favDiscipline) { this.favDiscipline = favDiscipline; }
+    public String getDiscipline() { return this.favDiscipline; }
+    
+    
+    public void setRegDate(LocalDate regDate) { this.regDate = regDate; }
+    public LocalDate getRegDate() { return this.regDate; }
+    
+    
+    public void setType(String memType) { this.memType = memType; }
+    public String getType() { return this.memType; }
+    
+    
+    //calculateAge() is returning an ``int`` comparing the DOB and the current date
+    public int calculateAge(LocalDate DOB) {  return Period.between(DOB, LocalDate.now()).getYears();  }
+    
+    
+    public void setAge() { this.memAge = calculateAge(this.memDOB); }
+    public int getAge() { return this.memAge; }
+    
+    
+
+    public void setAgeRange() {
+        
+        if ( this.getAge() < 19) ageRange = "Junior";
+        else ageRange = "Senior";
+        
     }
     
-    public int getID() {
-        return ID;
-    }
+    public String getAgeRange() { return this.ageRange; }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
 
-    public String getName() {
-        return name;
-    }
+    public void setValidity(boolean memValidity) { this.memValidity = memValidity; }
+    public boolean getValidity() { return memValidity; }
+    
+    
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getDiscipline() {
-        return discipline;
-    }
-
-    public void setDiscipline(String discipline) {
-        this.discipline = discipline;
-    }
-
-    public LocalDate getRegDate() {
-        return regDate;
-    }
-
-    public void setRegDate(LocalDate regDate) {
-        this.regDate = regDate;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getAgeRange() {
-        return ageRange;
-    }
-
-    public void setAgeRange(String ageRange) {
-        this.ageRange = ageRange;
-    }
-
-    public boolean getValidity() {
-        return validity;
-    }
-
-    public void setValidity(boolean validity) {
-        this.validity = validity;
-    }
-
-    public boolean getActivityLevel() {
-        return activityLevel;
-    }
-
-    public void setActivityLevel(boolean activityLevel) {
-        this.activityLevel = activityLevel;
-    }
+    //the ActivityLevel will be true when the membership is active and false when the membership is passive!
+    public void setActivityLevel(boolean activityLevel) { this.activityLevel = activityLevel; }
+    public boolean getActivityLevel() { return activityLevel; }
+    
 
 }
