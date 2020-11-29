@@ -1,12 +1,16 @@
 import java.util.*;
 import java.io.*;
+import java.time.*;
 
 public class MemberList{
+
    private ArrayList<Member> members = new ArrayList<Member>();
    
+   Member m = new Member();
+   
    //Adds a new member
-   public void addMember(int newID, String newName, int newAge, String newAddress, String newDiscipline, String newType, boolean newValidity, boolean newActivityLevel){
-      members.add(new Member(newID, newName, newAge, newAddress, newDiscipline, newType, newValidity, newActivityLevel));
+   public void addMember(int ID, String name, LocalDate birth, String address, String disc, String membership, boolean level){
+      members.add(m);
    }
    
    //Deletes member based on ID
@@ -18,13 +22,13 @@ public class MemberList{
       }
    }
    
-   //Loads file
-   public void scanFile() throws FileNotFoundException{
-      Scanner scanFile = new Scanner(new File("Member List.txt"));
-      while (scanFile.hasNextLine()){
-         addMember(scanFile.nextInt(), scanFile.next(), scanFile.nextInt(), scanFile.next(), scanFile.next(), scanFile.next(), scanFile.nextBoolean(), scanFile.nextBoolean());
-      }
-   }
+//    //Loads file
+//    public void scanFile() throws FileNotFoundException{
+//       Scanner scanFile = new Scanner(new File("Member List.txt"));
+//       while (scanFile.hasNextLine()){
+//          addMember(scanFile.nextInt(), scanFile.next(), scanFile.next(), scanFile.next(), scanFile.next(), scanFile.next(), scanFile.nextBoolean());
+//       }
+//    }
    
    //Prints all contents of member list
    public void printMembers(){
