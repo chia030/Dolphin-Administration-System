@@ -6,6 +6,13 @@ public class ResultsList {
 
     //making an array list
     private ArrayList<Result> results;
+    
+    public ResultList() { 
+    
+       results = new ArrayList<Results>();
+       results.loadResults();
+       
+       }
 
     //adding results 
     //not sure to leave it like this and fuck around with the scanner later or if to implement the scanner now
@@ -22,7 +29,7 @@ public class ResultsList {
                 results.add(new Result(read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine()));
             }
         } catch (Exception e) {
-            e.printStackTrace(); //priting our current error
+            e.printStackTrace(); //priting out current error
         }
     }
 
