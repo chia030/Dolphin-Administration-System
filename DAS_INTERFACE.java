@@ -28,15 +28,19 @@ public class DAS_INTERFACE {
         switch(u) {
         
             case CHAIRMAN:
-                System.out.print("\n\nWelcome Chairman!\n\n");
+                System.out.println("\n\nWelcome Chairman!\n\n");
+                Chairman chairman = new Chairman();
                 break;
                 
             case TREASURER:
-                System.out.print("\n\nWelcome Treasurer!\n\n");
+                System.out.println("\n\nWelcome Treasurer!\n\n");
+                Treasurer treasurer = new Treasurer();
                 break;
                 
             case COACH:
-                System.out.print("\n\nWelcome Coach!\n\n");
+//              System.out.println("\n\nWelcome Coach!\n\n");
+//              Coach coach = new Coach();
+                homeCoach();
                 break;
         
         }
@@ -101,14 +105,22 @@ public class DAS_INTERFACE {
          sentinel = false;
       
          System.out.print("\nUSER ID: ");
-         userID = Integer.parseInt(scan.next());
          
-         if (!(userID==UserType.CHAIRMAN.getID() || userID==UserType.TREASURER.getID() || userID==UserType.COACH.getID())) {
+         try { 
+            
+            userID = Integer.parseInt(scan.next());
          
-            sentinel = true; 
-            System.out.println("\nPlease enter a valid ID number!\n");
+            if (!(userID==UserType.CHAIRMAN.getID() || userID==UserType.TREASURER.getID() || userID==UserType.COACH.getID())) {
+         
+                sentinel = true; 
+                System.out.println("\nPlease enter a valid ID number!\n");
              
-         }
+            }
+            
+         } catch (Exception e) { 
+            sentinel = true; 
+            System.out.println("\nPlease enter a valid ID number!\n"); 
+         }    
              
       } while(sentinel);
 //    END OF ID LOOP.
@@ -120,56 +132,61 @@ public class DAS_INTERFACE {
           
          sentinel = false;
          System.out.print("\nPIN: ");
-         userPIN = Integer.parseInt(scan.next());
-          
-         if (userPIN==UserType.CHAIRMAN.getPIN() && userID==UserType.CHAIRMAN.getID()) { userTYPE = UserType.CHAIRMAN; }
-          
-         else if (userPIN==UserType.TREASURER.getPIN() && userID==UserType.TREASURER.getID()) { userTYPE = UserType.TREASURER; }
-          
-         else if (userPIN==UserType.COACH.getPIN() && userID==UserType.COACH.getID()) { userTYPE = UserType.COACH; }
-          
-         else {
-          
-            System.out.println("\nInvalid PIN!\n");
-            cnt++; //increasing the count of failed PIN attempts each time
-             
-            if(cnt<=2) {
-             
-               System.out.println("\nPress [T] to try again or [B] to go back...\n");
-                
-               switch (scan.next().toUpperCase()) {
-                   
-                  case "T":
-                     sentinel = true;
-                     break;
-                         
-                  case "B":
-                     s = true;
-                     return; //goes back to useSystem()
-                         
-                  default:
-                     s = true;
-                     System.out.println("\nInvalid input! Returning to home...\n");
-                     Thread.sleep(PAUSETIME);
-                     System.out.println(CLEARCONSOLE);
-                     return; //goes back to useSystem()
-                   
-               }
-                
-            }
-              
-            else { 
-              
-               s = true;
-               System.out.println("\n3 failed attempts. Returning to home...\n");
-               Thread.sleep(PAUSETIME);
-               System.out.println(CLEARCONSOLE);
-               return; //goes back to useSystem()
-                
-            }
-                
          
-         }
+         try {
+         
+             userPIN = Integer.parseInt(scan.next());
+             
+             } catch (Exception e) { userPIN = 0; }
+              
+             if (userPIN==UserType.CHAIRMAN.getPIN() && userID==UserType.CHAIRMAN.getID()) { userTYPE = UserType.CHAIRMAN; }
+              
+             else if (userPIN==UserType.TREASURER.getPIN() && userID==UserType.TREASURER.getID()) { userTYPE = UserType.TREASURER; }
+              
+             else if (userPIN==UserType.COACH.getPIN() && userID==UserType.COACH.getID()) { userTYPE = UserType.COACH; }
+              
+             else {
+              
+                System.out.println("\nInvalid PIN!\n");
+                cnt++; //increasing the count of failed PIN attempts each time
+                 
+                if(cnt<=2) {
+                 
+                   System.out.println("\nPress [T] to try again or [B] to go back...\n");
+                    
+                   switch (scan.next().toUpperCase()) {
+                       
+                      case "T":
+                         sentinel = true;
+                         break;
+                             
+                      case "B":
+                         s = true;
+                         return; //goes back to useSystem()
+                             
+                      default:
+                         s = true;
+                         System.out.println("\nInvalid input! Returning to home...\n");
+                         Thread.sleep(PAUSETIME);
+                         System.out.println(CLEARCONSOLE);
+                         return; //goes back to useSystem()
+                       
+                   }
+                    
+                }
+                  
+                else { 
+                  
+                   s = true;
+                   System.out.println("\n3 failed attempts. Returning to home...\n");
+                   Thread.sleep(PAUSETIME);
+                   System.out.println(CLEARCONSOLE);
+                   return; //goes back to useSystem()
+                    
+                }
+                    
+             
+             }
       
       
       
@@ -182,7 +199,43 @@ public class DAS_INTERFACE {
    
    public static void homeTreasurer() {}
    
-   public static void homeCoach() {}
+   public static void homeCoach() {
+   
+    boolean sentinel;
+   
+    System.out.println("\n\nWelcome Coach!\n\n");
+    Coach coach = new Coach();
+    
+    do {
+    
+        sentinel = false;
+    
+        System.out.println("What would you like to do?\nPlease select one of the following options:\n");
+        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to VIEW RANKINGS\n- [C] to VIEW ALL MEMBERS IN TRAINING\n- [Q] to LOG OUT\n");
+    
+        switch (scan.next().toUpperCase()) {
+        
+            case "A":
+                break;
+                
+            case "B":
+                break;
+                
+            case "C":
+                break;
+                
+            case "Q":
+                break;
+                
+            default:
+                sentinel = true;   
+        
+        
+        }
+        
+        } while(sentinel);
+   
+   }
    
    
 
