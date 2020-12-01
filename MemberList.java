@@ -39,24 +39,20 @@ public class MemberList{
       }
    }
    
-   //Prints the unpaid members that we'll call in the Treasurer class (ADDED by Frank 01.12 @ 5pm)
-    public void printUnpaid() {
+   
+   //Prints the list that shows the unpaid members at the top and paid ones on the bottom (for the treasurer)
+    public void printUnpaidPaid() {
         for (int i = 0; i < members.size(); i++) {
-            if (members.get(i).getValidity() == false) {
+            if (!members.get(i).getValidity()) {
                 System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
                }
             }
-        }
-       
-    //Prints the paid members that we'll call in the Treasurer class (ADDED by Frank 01.12 @ 5pm)
-    public void printPaid() {
         for (int i = 0; i < members.size(); i++) {
-            if (members.get(i).getValidity() == true) {
+            if (members.get(i).getValidity()) {
                 System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
-               }
             }
         }
-       
+    }
        
    
    //Saves to file (when exiting program): or why use if statements when you can use try and catch :)
