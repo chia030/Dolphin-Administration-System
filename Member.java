@@ -30,7 +30,7 @@ public class Member {
    private boolean memValidity = false;
    private boolean activityLevel; //activityLevel: ACTIVE(true)/PASSIVE(false)
 
-    
+// CONSTRUCTOR FOR THE registerMember() METHOD:    
    public Member(String name, LocalDate birth, String address, String disc, String membership, boolean level) {
     
       this.setID();
@@ -47,6 +47,28 @@ public class Member {
       
       //the validity will be set from the treasurer when they actually pay!!!
     
+   }
+   
+   
+// CONSTRUCTOR FOR THE MEMBERLIST:
+   public Member(int ID, String name, LocalDate birth, String address, String disc, String membership, boolean level, LocalDate date, boolean validity) {
+   
+      this.memID = ID;
+      this.memName = name;
+      this.memDOB = birth;
+      this.address = address;
+      this.favDiscipline = disc;
+      this.memType = membership;
+      this.activityLevel = level;
+//      this.regDate = LocalDate.now(); //this will need to be read from a file!
+      this.regDate = date;
+      this.setAge();
+      this.setAgeRange();
+      this.setMembershipPrice();
+      this.memValidity = validity;
+      
+
+   
    }
 
      
