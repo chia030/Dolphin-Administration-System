@@ -8,5 +8,11 @@ public class Treasurer extends Employee {
 
 
     public void registerPayment() {}
+    
+    public void showUnpaidMembers () throws FileNotFoundException {
+        MemberList ml = new MemberList();
+        ml.scanFile();
+        ml.printUnpaid();
+    }
 
 }
