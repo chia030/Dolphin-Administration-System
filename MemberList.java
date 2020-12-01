@@ -44,6 +44,7 @@ public class MemberList{
         for (int i = 0; i < members.size(); i++) {
             if (members.get(i).getValidity() == false) {
                 System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
+               }
             }
         }
        
@@ -52,6 +53,7 @@ public class MemberList{
         for (int i = 0; i < members.size(); i++) {
             if (members.get(i).getValidity() == true) {
                 System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
+               }
             }
         }
        
