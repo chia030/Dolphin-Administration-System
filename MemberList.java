@@ -1,14 +1,8 @@
 import java.util.*;
 import java.io.*;
+import java.time.*;
 
 public class MemberList{
-<<<<<<< Updated upstream
-   private ArrayList<Member> members = new ArrayList<Member>();
-   
-   //Adds a new member
-   public void addMember(int newID, String newName, int newAge, String newAddress, String newDiscipline, String newType, boolean newValidity, boolean newActivityLevel){
-      members.add(new Member(newID, newName, newAge, newAddress, newDiscipline, newType, newValidity, newActivityLevel));
-=======
 
    LocalDate date;
 
@@ -19,7 +13,6 @@ public class MemberList{
    //Adds a new member
    public void addMember(Member m){
       members.add(m);
->>>>>>> Stashed changes
    }
    
    //Deletes member based on ID
@@ -35,11 +28,7 @@ public class MemberList{
    public void scanFile() throws FileNotFoundException{
       Scanner scanFile = new Scanner(new File("Member List.txt"));
       while (scanFile.hasNextLine()){
-<<<<<<< Updated upstream
-         addMember(scanFile.nextInt(), scanFile.next(), scanFile.nextInt(), scanFile.next(), scanFile.next(), scanFile.next(), scanFile.nextBoolean(), scanFile.nextBoolean());
-=======
          addMember(new Member(scanFile.nextInt(), scanFile.next(), date.of(scanFile.nextInt(), scanFile.nextInt(), scanFile.nextInt()), scanFile.next(), scanFile.next(), scanFile.next(), scanFile.nextBoolean()));
->>>>>>> Stashed changes
       }
    }
    
