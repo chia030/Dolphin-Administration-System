@@ -5,18 +5,18 @@ import java.util.*;
 public class ResultsList {
 
     //making an array list
-    private ArrayList<Result> results;
+    public ArrayList<Result> results = new ArrayList<Result>();
     
-    public ResultList() { 
-    
-       results = new ArrayList<Results>();
-       results.loadResults();
-       
+    public ResultsList() { 
+        ArrayList<Result> results = new ArrayList();        
+        loadResults(); 
        }
 
+    public ArrayList<Result> getResults(){
+        return results;
+    }
+
     //adding results 
-    //not sure to leave it like this and fuck around with the scanner later or if to implement the scanner now
-    //i guess we will discuss on monday
     public void addResult(Result result){
         results.add(result);
     }
@@ -26,7 +26,7 @@ public class ResultsList {
         try { 
             Scanner read = new Scanner(new File("RESULTS.TXT"));
             while (read.hasNextLine()){
-                results.add(new Result(read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine()));
+                addResult(new Result(read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine()));
             }
         } catch (Exception e) {
             e.printStackTrace(); //priting out current error
@@ -52,12 +52,20 @@ public class ResultsList {
         }
         
     }
-
-    //when a member is removed it would be usefull to deelete all their results
-    //maybe should work with their name or member id, ill change it upon discussion
-    public void deleteResult(int index){
-        results.remove(index);    
+    
+    public void deleteResult(String ID){
+        for(int i=0;(i<=results.size()-1);i++){
+            if (results.get(i).getID().equals(ID)){
+                results.remove(i);
+            }
+        }   
     }
+
+    public void printResults(){
+        for (int i = 0; i < results.size(); i++){
+           System.out.println(results.get(i).toString());
+        }
+     }
 
     
 }
