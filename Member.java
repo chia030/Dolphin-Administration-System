@@ -1,20 +1,14 @@
 /* 
- 
- This is Chiara's edited version of the Member class! I had to do some changes because I couldn't work with the previous version... :(
-   What changed (29/11 @ 16:30) : 
-   
-      - added memDOB (date of birth);
-      - changed the variables to "mem<Variable>" so we don't get confused with the other classes
-      - added a method that will automatically calculate the age, comparing the DOB with the current date (it might need some fixing in the future depending on how we'll use it!)
-      - fixed the return statements in the getters so that they return the values of the object `` this.<variable> ``
-      - edited the constructor slightly, I will probably have to add more changes to it
-      - formatted all the getters and setters
-      - set memValidity to default to ``false`` when instantiated so no one will get away with payments
       
    TO DO:
    
-      - format dates so they will be displayed nicely with only the info that we need ("dd-MM-yyyy")
-      - perhaps add a toString method? where will it be used?
+     1 - format dates so they will be displayed nicely with only the info that we need ("dd-MM-yyyy")
+     2 - perhaps add a toString method? where will it be used?
+     3 - now we need something that limits the passive members' options, some method that will allow them to have access to the pool only in the morning for example:
+         this could be done by changing their membership to be valid only during some hours of the day (so working with memValidity)
+     4 - maybe we should change memType to a boolean and call it something like isCompetitive and then another boolean called hasCoach so that if isCompetitive is true,
+         has coach will true too (upon creation of the member, so in the constructor)      
+      
  */
 
 import java.time.*;
@@ -28,33 +22,18 @@ public class Member {
    private LocalDate memDOB;
    private int memAge; 
    private String address;
-   private int membershipPrice = 500;
    private String favDiscipline;
    private int memPrice = 500;
    private LocalDate regDate;
-   private String memType;
-   private String ageRange;
+   private String memType; //memType: "EXERCISE"/"ELITE"
+   private String ageRange; //ageRange: "JUNIOR"/"SENIOR"
    private boolean memValidity = false;
-   private boolean activityLevel;
-   
-   Random r = new Random();
-   
-   private double setMembershipPrice(){ // Unsure if this will work. Need some way to define the memType. Enum maybe? I just don't know how to do an Enum.
-      if (this.memAge < 18 && this.memType.equals("Active")){
-         this.memPrice = 1000;
-      }else if (this.memAge >= 18 && this.memType.equals("Active") && this.memAge < 60){
-         this.memPrice = 1600;
-      }else if (this.memAge >= 60 && this.memType.equals("Active")){
-         this.memPrice = 1200;
-      }else{
-         this.memPrice = memPrice;
-      }
-      return memPrice;
-   }
+   private boolean activityLevel; //activityLevel: ACTIVE(true)/PASSIVE(false)
+
     
-   public Member(int ID, String name, LocalDate birth, String address, String disc, String membership, boolean level) {
+   public Member(String name, LocalDate birth, String address, String disc, String membership, boolean level) {
     
-      this.memID = ID;
+      this.setID();
       this.memName = name;
       this.memDOB = birth;
       this.address = address;
@@ -64,15 +43,15 @@ public class Member {
       this.regDate = LocalDate.now();
       this.setAge();
       this.setAgeRange();
-      setMembershipPrice();
-      setID(); //Not sure if this belongs here?
-       
-       //the validity will be set from the treasurer when they actually pay!!!
+      this.setMembershipPrice();
+      
+      //the validity will be set from the treasurer when they actually pay!!!
     
    }
 
      
-   public void setID(int memID) { //This should work to set the memID to be a random number from 1-9999 I think? Call it in the constructor maybe?
+   public void setID() { //This should work to set the memID to be a random number from 1-9999 I think? Call it in the constructor maybe?
+      Random r = new Random();
       memID = r.nextInt(9998) + 1;
       this.memID = memID; 
    }
@@ -159,7 +138,41 @@ public class Member {
    }
     
    public String getAgeRange() { 
-      return this.ageRange; }
+      return this.ageRange; 
+   }
+   
+
+// Chiara's setMembershipPrice() method:
+// I altered it slightly so that the return type is void (because it's a setter)     
+   
+   public void setMembershipPrice(){
+   
+      if (this.ageRange.equals("Junior") && this.activityLevel){
+         this.memPrice = 1000;
+      } else if (this.ageRange.equals("Senior") && this.activityLevel && this.memAge < 60){
+         this.memPrice = 1600;
+      } else if (this.memAge >= 60 && this.activityLevel){
+         this.memPrice = 1200;
+      } else {
+         this.memPrice = memPrice;
+      }
+      
+   }   
+   
+//    Dom's setMembershipPrice() Method:
+//   
+//    private double setMembershipPrice(){ // Unsure if this will work. Need some way to define the memType. Enum maybe? I just don't know how to do an Enum.
+//       if (this.memAge < 18 && this.memType.equals("Active")){
+//          this.memPrice = 1000;
+//       }else if (this.memAge >= 18 && this.memType.equals("Active") && this.memAge < 60){
+//          this.memPrice = 1600;
+//       }else if (this.memAge >= 60 && this.memType.equals("Active")){
+//          this.memPrice = 1200;
+//       }else{
+//          this.memPrice = memPrice;
+//       }
+//       return memPrice;
+//    }
 
 
    public void setValidity(boolean memValidity) { 
@@ -173,7 +186,8 @@ public class Member {
     
 
 
-    //the ActivityLevel will be true when the membership is active and false when the membership is passive!
+// the ActivityLevel will be true when the membership is active and false when the membership is passive!
+// there will be a method in the Treasurer class to set it to true
    public void setActivityLevel(boolean activityLevel) { 
       this.activityLevel = activityLevel; 
    }
