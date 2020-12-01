@@ -22,28 +22,7 @@ public class DAS_INTERFACE {
     
         this.userID = u.getID();
         this.userPIN = u.getPIN();
-        
-        //WORK IN PROGRESS...
-        
-        switch(u) {
-        
-            case CHAIRMAN:
-                System.out.println("\n\nWelcome Chairman!\n\n");
-                Chairman chairman = new Chairman();
-                break;
-                
-            case TREASURER:
-                System.out.println("\n\nWelcome Treasurer!\n\n");
-                Treasurer treasurer = new Treasurer();
-                break;
-                
-            case COACH:
-//              System.out.println("\n\nWelcome Coach!\n\n");
-//              Coach coach = new Coach();
-                homeCoach();
-                break;
-        
-        }
+        this.userTYPE = u;
         
     }    
     
@@ -51,16 +30,21 @@ public class DAS_INTERFACE {
    public static Scanner scan = new Scanner(System.in);
    public static boolean s;
    
-    
+   
+   public static final int SHORTPAUSE = 1500; 
    public static final int PAUSETIME = 2000; //this will give the users time to read what the console prints
    public static final String CLEARCONSOLE = "\n\n\n\n\n\n\n\n"; //clears the console
-
+   
+   
    public static void systemStart() throws InterruptedException {
     
-       
-      System.out.println("\n\n-------------Welcome to the Dolphin Administration System-------------\n\n");
+      System.out.println("\n\n______________________________________________________________"); 
+      System.out.println("\n                DOLPHIN ADMINISTRATION SYSTEM                \n");
+      System.out.println("______________________________________________________________\n\n");
       Thread.sleep(PAUSETIME);
       System.out.println(CLEARCONSOLE);
+      
+      System.out.println("\nWELCOME!\n");
        
        
 //    GUEST HOME SCREEN LOOP:
@@ -69,7 +53,7 @@ public class DAS_INTERFACE {
          s = false;
          userTYPE = null;
        
-         System.out.println("What would you like to do?\n\nPress [L] to login or [Q] to quit...\n");
+         System.out.println("\nWhat would you like to do?\n\nPress [L] to login or [Q] to quit...\n");
        
          switch (scan.next().toUpperCase()) {
           
@@ -109,6 +93,9 @@ public class DAS_INTERFACE {
          try { 
             
             userID = Integer.parseInt(scan.next());
+            
+         } catch (Exception e) { userID = 0; } //catching input that cannot be converted into an ``int``
+         
          
             if (!(userID==UserType.CHAIRMAN.getID() || userID==UserType.TREASURER.getID() || userID==UserType.COACH.getID())) {
          
@@ -116,12 +103,7 @@ public class DAS_INTERFACE {
                 System.out.println("\nPlease enter a valid ID number!\n");
              
             }
-            
-         } catch (Exception e) { 
-            sentinel = true; 
-            System.out.println("\nPlease enter a valid ID number!\n"); 
-         }    
-             
+ 
       } while(sentinel);
 //    END OF ID LOOP.
 
@@ -137,7 +119,7 @@ public class DAS_INTERFACE {
          
              userPIN = Integer.parseInt(scan.next());
              
-             } catch (Exception e) { userPIN = 0; }
+             } catch (Exception e) { userPIN = 0; } //catching input that cannot be converted into an ``int``
               
              if (userPIN==UserType.CHAIRMAN.getPIN() && userID==UserType.CHAIRMAN.getID()) { userTYPE = UserType.CHAIRMAN; }
               
@@ -187,30 +169,134 @@ public class DAS_INTERFACE {
                     
              
              }
-      
-      
-      
+
       } while(sentinel);
-//    END OF PIN LOOP.  
+//    END OF PIN LOOP.
+
+   }
+   
+   public static void userInterface() throws InterruptedException {
+
+        switch(userTYPE) {
+        
+            case CHAIRMAN:
+                homeChairman();
+                break;
+                
+            case TREASURER:
+                homeTreasurer();
+                break;
+                
+            case COACH:
+                homeCoach();
+                break;
+        
+        }   
    
    }
    
-   public static void homeChairman() {}
    
-   public static void homeTreasurer() {}
+   public static void homeChairman() throws InterruptedException {
    
-   public static void homeCoach() {
+    boolean sentinel;
+    System.out.println("\n\nWelcome Chairman!\n\n");
+    Chairman chairman = new Chairman();
+    
+//  CHAIRMAN HOME LOOP:
+    do {
+    
+        sentinel = false;
+    
+        System.out.println("\nPlease select one of the following options:\n");
+        System.out.println("\n- [A] to REGISTER NEW MEMBER\n- [B] to EDIT MEMBER INFO\n- [C] to VIEW MEMBERS\n- [Q] to LOG OUT\n");
+    
+        switch (scan.next().toUpperCase()) {
+        
+            case "A":
+                break;
+                
+            case "B":
+                break;
+                
+            case "C":
+                break;
+                
+            case "Q":
+                DAS.sentinelDAS = true;
+                System.out.println("\nThank you for your work, Chairman!\nHave a lovely day :)\n");
+                Thread.sleep(SHORTPAUSE);
+                System.out.println(CLEARCONSOLE);
+                break;
+                
+            default:
+                sentinel = true;   
+        
+        
+        }
+        
+     } while(sentinel);
+//  END OF CHAIRMAN HOME LOOP.    
+   
+   }
+   
+   public static void homeTreasurer() throws InterruptedException {
+   
+    boolean sentinel;
+    System.out.println("\n\nWelcome Treasurer!\n\n");
+    Treasurer treasurer = new Treasurer();
+
+
+//  TREASURER HOME LOOP:    
+    do {
+    
+        sentinel = false;
+    
+        System.out.println("\nPlease select one of the following options:\n");
+        System.out.println("\n- [A] to REGISTER NEW PAYMENT\n- [B] to VIEW MEMBERS BEHIND WITH PAYMENT\n- [C] to VIEW MEMBERS\n- [Q] to LOG OUT\n");
+    
+        switch (scan.next().toUpperCase()) {
+        
+            case "A":
+                break;
+                
+            case "B":
+                break;
+                
+            case "C":
+                break;
+                
+            case "Q":
+                DAS.sentinelDAS = true;
+                System.out.println("\nThank you for your work, Treasurer!\nHave a lovely day :)\n");
+                Thread.sleep(SHORTPAUSE);
+                System.out.println(CLEARCONSOLE);
+                break;
+                
+            default:
+                sentinel = true;   
+        
+        
+        }
+        
+     } while(sentinel);
+//  END OF TREASURER HOME LOOP.     
+
+   
+   }
+   
+   public static void homeCoach() throws InterruptedException {
    
     boolean sentinel;
    
     System.out.println("\n\nWelcome Coach!\n\n");
     Coach coach = new Coach();
     
+//  COACH HOME LOOP:    
     do {
     
         sentinel = false;
     
-        System.out.println("What would you like to do?\nPlease select one of the following options:\n");
+        System.out.println("\nPlease select one of the following options:\n");
         System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to VIEW RANKINGS\n- [C] to VIEW ALL MEMBERS IN TRAINING\n- [Q] to LOG OUT\n");
     
         switch (scan.next().toUpperCase()) {
@@ -225,6 +311,10 @@ public class DAS_INTERFACE {
                 break;
                 
             case "Q":
+                DAS.sentinelDAS = true;
+                System.out.println("\nThank you for your work, Coach!\nHave a lovely day :)\n");
+                Thread.sleep(SHORTPAUSE);
+                System.out.println(CLEARCONSOLE);
                 break;
                 
             default:
@@ -233,7 +323,8 @@ public class DAS_INTERFACE {
         
         }
         
-        } while(sentinel);
+     } while(sentinel);
+//  END OF COACH HOME LOOP.       
    
    }
    
