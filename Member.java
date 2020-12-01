@@ -29,6 +29,24 @@ public class Member {
    private String ageRange; //ageRange: "JUNIOR"/"SENIOR"
    private boolean memValidity = false;
    private boolean activityLevel; //activityLevel: ACTIVE(true)/PASSIVE(false)
+   
+   public void setMembershipPrice(){
+   
+      if (this.ageRange.equals("Junior") && this.activityLevel){
+         this.memPrice = 1000;
+      } else if (this.ageRange.equals("Senior") && this.activityLevel && this.memAge < 60){
+         this.memPrice = 1600;
+      } else if (this.memAge >= 60 && this.activityLevel){
+         this.memPrice = 1200;
+      } else {
+         this.memPrice = memPrice;
+      }
+      
+   }  
+   
+   public String toString(){ // I don't know what you guys think of this. Feel free to format it in another way or remove/add stuff.
+      return "ID: " + this.memID + " Name: " + this.memID + " Date of Birth: " + this.memDOB + " Age: " + this.memAge + " Address: " + this.address + " Discipline: " + this.favDiscipline + " Membership price: " + this.memPrice + " Registration date: " + this.regDate + " Member level: " + this.memType + " Age classification: " + this.ageRange + " Membership validity: " + this.memValidity + " Membership level: " + this.activityLevel + ".";
+   }
 
 // CONSTRUCTOR FOR THE registerMember() METHOD:    
    public Member(String name, LocalDate birth, String address, String disc, String membership, boolean level) {
@@ -60,15 +78,13 @@ public class Member {
       this.favDiscipline = disc;
       this.memType = membership;
       this.activityLevel = level;
-//      this.regDate = LocalDate.now(); //this will need to be read from a file!
+   //      this.regDate = LocalDate.now(); //this will need to be read from a file!
       this.regDate = date;
       this.setAge();
       this.setAgeRange();
       this.setMembershipPrice();
       this.memValidity = validity;
       
-
-   
    }
 
      
@@ -161,42 +177,9 @@ public class Member {
     
    public String getAgeRange() { 
       return this.ageRange; 
-   }
-   
-
-// Chiara's setMembershipPrice() method:
-// I altered it slightly so that the return type is void (because it's a setter)     
-   
-   public void setMembershipPrice(){
-   
-      if (this.ageRange.equals("Junior") && this.activityLevel){
-         this.memPrice = 1000;
-      } else if (this.ageRange.equals("Senior") && this.activityLevel && this.memAge < 60){
-         this.memPrice = 1600;
-      } else if (this.memAge >= 60 && this.activityLevel){
-         this.memPrice = 1200;
-      } else {
-         this.memPrice = memPrice;
-      }
-      
    }   
    
-//    Dom's setMembershipPrice() Method:
-//   
-//    private double setMembershipPrice(){ // Unsure if this will work. Need some way to define the memType. Enum maybe? I just don't know how to do an Enum.
-//       if (this.memAge < 18 && this.memType.equals("Active")){
-//          this.memPrice = 1000;
-//       }else if (this.memAge >= 18 && this.memType.equals("Active") && this.memAge < 60){
-//          this.memPrice = 1600;
-//       }else if (this.memAge >= 60 && this.memType.equals("Active")){
-//          this.memPrice = 1200;
-//       }else{
-//          this.memPrice = memPrice;
-//       }
-//       return memPrice;
-//    }
-
-
+   
    public void setValidity(boolean memValidity) { 
       this.memValidity = memValidity; 
    }
