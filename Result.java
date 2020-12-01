@@ -7,10 +7,12 @@ public class Result {
     private String time;
     private String date;
     private String discipline;
+    private String ID;
 
     //constructor when creating a result
-    public Result(String name,int distance,String time, String discipline){
+    public Result(String name, String ID, int distance,String time, String discipline){
         this.distance = distance;
+        this.ID = ID;
         this.name = name;
         this.time = time;
         this.discipline = discipline;
@@ -18,8 +20,9 @@ public class Result {
     }
 
     //constructor when reading from a file
-    public Result(String name, String date, String time, String distance,String discipline){
+    public Result(String name, String ID, String date, String time, String distance,String discipline){
         this.distance = Integer.parseInt(distance);
+        this.ID = ID;
         this.name = name;
         this.time = time;
         this.discipline = discipline;
@@ -34,6 +37,14 @@ public class Result {
 
     public int getDistance(){
         return distance;
+    }
+
+    public void setID(String ID){
+        this.ID = ID;
+    }
+
+    public String getID(){
+        return ID;
     }
 
     public void setName(String name){
@@ -69,7 +80,7 @@ public class Result {
     }
 
     public String toString(){
-        return getName()+" \n"+getDate()+"\n"+getTime()+"\n"+getDistance()+"\n"+getDiscipline();
+        return getName()+" \n"+getID()+"\n"+getDate()+"\n"+getTime()+"\n"+getDistance()+"\n"+getDiscipline();
     }
 
 }
