@@ -31,9 +31,24 @@ public class MemberList{
       members.add(m);
    }
    
+   
+// TO MAKE SURE THE MEMBERS DON'T GET THE SAME ID WHEN THEY ARE CREATED:
+   public boolean checkID(int ID) {
+   
+    boolean existingID = false;
+   
+     for (int i=0; i <= members.size(); i++) { 
+        if (members.get(i).getID() == ID) existingID = true;
+        else existingID = false;
+     }
+     
+     return existingID;
+
+   }
+   
    //Deletes member based on ID
    public void deleteMember(int newID){
-      for (int i = 0; i < members.size(); i++){
+      for (int i = 0; i <= members.size(); i++){
          if (members.get(i).getID() == newID){
             members.remove(i);
          }
@@ -50,7 +65,7 @@ public class MemberList{
    
    //Prints all contents of member list
    public void printMembers(){
-      for (int i = 0; i < members.size(); i++){
+      for (int i = 0; i <= members.size(); i++){
          System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
       }
    }
@@ -58,12 +73,12 @@ public class MemberList{
    
    //Prints the list that shows the unpaid members at the top and paid ones on the bottom (for the treasurer)
     public void printUnpaidPaid() {
-        for (int i = 0; i < members.size(); i++) {
+        for (int i = 0; i <= members.size(); i++) {
             if (!members.get(i).getValidity()) {
                 System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
                }
             }
-        for (int i = 0; i < members.size(); i++) {
+        for (int i = 0; i <= members.size(); i++) {
             if (members.get(i).getValidity()) {
                 System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
             }
@@ -76,7 +91,7 @@ public class MemberList{
       PrintStream save = new PrintStream(new File ("Member List.txt"));
       try{
          try{
-            for (int i = 0; i < (members.size() - 1); i++){
+            for (int i = 0; i <= (members.size() - 1); i++){
                save.println(members.get(i).getID() + " " + members.get(i).getName() + " " + members.get(i).getDOB().getYear() + " " + members.get(i).getDOB().getMonthValue() + " " + members.get(i).getDOB().getDayOfMonth() + " " + members.get(i).getAddress() + " " + members.get(i).getDiscipline() + " " + members.get(i).getType() + " " + members.get(i).getActivityLevel() + " " + members.get(i).getRegDate().getYear() + " " + members.get(i).getRegDate().getMonthValue() + " " + members.get(i).getRegDate().getDayOfMonth() + " " + members.get(i).getValidity());
             }
             save.print(members.get(members.size() - 1).getID() + " " + members.get(members.size() - 1).getName() + " " + members.get(members.size() - 1).getDOB().getYear() + " " + members.get(members.size() - 1).getDOB().getMonthValue() + " " + members.get(members.size() - 1).getDOB().getDayOfMonth() + " " + members.get(members.size() - 1).getAddress() + " " + members.get(members.size() - 1).getDiscipline() + " " + members.get(members.size() - 1).getType() + " " + members.get(members.size() - 1).getActivityLevel() + " " + members.get(members.size() - 1).getRegDate().getYear() + " " + members.get(members.size() - 1).getRegDate().getMonthValue() + " " + members.get(members.size() - 1).getRegDate().getDayOfMonth() + " " + members.get(members.size() - 1).getValidity());

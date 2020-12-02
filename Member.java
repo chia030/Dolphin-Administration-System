@@ -86,10 +86,11 @@ public class Member {
       
    }
 
-     
-   public void setID() { //This should work to set the memID to be a random number from 1-9999 I think? Call it in the constructor maybe?
+  
+  //ID SETTER: there's a method to check for duplicates in the MemberList, it will be called upon the creation of a new Member!   
+   public void setID() {
       Random r = new Random();
-      memID = r.nextInt(9998) + 1; //I just realized this method should be checking for ID duplicates, FUCK!
+      memID = r.nextInt(9998) + 1; 
       this.memID = memID; 
    }
   
