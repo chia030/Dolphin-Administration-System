@@ -5,13 +5,15 @@ import java.util.*;
 public class ResultsList {
 
     //making an array list
-    public ArrayList<Result> results = new ArrayList<Result>();
+    private ArrayList<Result> results;
     
+    //CONSTRUCTOR:
     public ResultsList() { 
-        ArrayList<Result> results = new ArrayList();        
+        results = new ArrayList<Result>();        
         loadResults(); 
        }
-
+    
+    
     public ArrayList<Result> getResults(){
         return results;
     }
@@ -29,7 +31,7 @@ public class ResultsList {
                 addResult(new Result(read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine()));
             }
         } catch (Exception e) {
-            e.printStackTrace(); //priting out current error
+            e.printStackTrace(); //priting our current error
         }
     }
 

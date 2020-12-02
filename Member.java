@@ -3,10 +3,9 @@
    TO DO:
    
      1 - format dates so they will be displayed nicely with only the info that we need ("dd-MM-yyyy")
-     2 - perhaps add a toString method? where will it be used?
-     3 - now we need something that limits the passive members' options, some method that will allow them to have access to the pool only in the morning for example:
+     2 - now we need something that limits the passive members' options, some method that will allow them to have access to the pool only in the morning for example:
          this could be done by changing their membership to be valid only during some hours of the day (so working with memValidity)
-     4 - maybe we should change memType to a boolean and call it something like isCompetitive and then another boolean called hasCoach so that if isCompetitive is true,
+     3 - maybe we should change memType to a boolean and call it something like isCompetitive and then another boolean called hasCoach so that if isCompetitive is true,
          has coach will true too (upon creation of the member, so in the constructor)      
       
  */
@@ -48,7 +47,7 @@ public class Member {
       return "ID: " + this.memID + " Name: " + this.memID + " Date of Birth: " + this.memDOB + " Age: " + this.memAge + " Address: " + this.address + " Discipline: " + this.favDiscipline + " Membership price: " + this.memPrice + " Registration date: " + this.regDate + " Member level: " + this.memType + " Age classification: " + this.ageRange + " Membership validity: " + this.memValidity + " Membership level: " + this.activityLevel + ".";
    }
 
-// CONSTRUCTOR FOR THE registerMember() METHOD:    
+// CONSTRUCTOR FOR THE registerMember() METHOD (Chairman Class):    
    public Member(String name, LocalDate birth, String address, String disc, String membership, boolean level) {
     
       this.setID();
@@ -90,7 +89,7 @@ public class Member {
      
    public void setID() { //This should work to set the memID to be a random number from 1-9999 I think? Call it in the constructor maybe?
       Random r = new Random();
-      memID = r.nextInt(9998) + 1;
+      memID = r.nextInt(9998) + 1; //I just realized this method should be checking for ID duplicates, FUCK!
       this.memID = memID; 
    }
   

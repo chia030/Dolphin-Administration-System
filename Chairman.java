@@ -15,7 +15,7 @@ public class Chairman extends Employee {
     public void assignCoach() {}
     
     public void showMemberList() throws FileNotFoundException {
-             MemberList ml = new MemberList();
+             MemberList ml = new MemberList(); //the memberlist cannot be instantiated here!
              ml.scanFile();
              ml.printMembers();
          }

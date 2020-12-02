@@ -11,7 +11,7 @@ public class Treasurer extends Employee {
     
     
    public void printUnpaidPaid () throws FileNotFoundException {
-        MemberList ml = new MemberList();
+        MemberList ml = new MemberList(); //the memberlist cannot be instantiated here!
         ml.scanFile();
         ml.printUnpaidPaid();
     }

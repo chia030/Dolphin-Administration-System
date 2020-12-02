@@ -1,3 +1,11 @@
+/*
+
+    TO DO: 
+        - optimize methods using the member's toString(), the teachers will not appreciate all the copy and paste done here hehe
+
+*/
+
+
 import java.util.*;
 import java.io.*;
 import java.time.*;
@@ -6,9 +14,17 @@ public class MemberList{
 
    LocalDate date;
 
-   private ArrayList<Member> members = new ArrayList<Member>();
+   private ArrayList<Member> members;
    
-//   Member m = new Member();
+   
+   //CONSTRUCTOR:
+   public MemberList() throws FileNotFoundException /*maybe we should catch this exception*/ {
+   
+        ArrayList<Member> members = new ArrayList<Member>();        
+        scanFile();
+   
+   }
+   
    
    //Adds a new member
    public void addMember(Member m){
