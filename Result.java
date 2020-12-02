@@ -2,7 +2,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.*;
 
 public class Result {
-    private int distance;   
+    private String distance;   
     private String name;
     private String time;
     private String date;
@@ -10,7 +10,7 @@ public class Result {
     private String ID;
 
     //constructor when creating a result
-    public Result(String name, String ID, int distance,String time, String discipline){
+    public Result(String name, String ID, String distance,String time, String discipline){
         this.distance = distance;
         this.ID = ID;
         this.name = name;
@@ -21,7 +21,7 @@ public class Result {
 
     //constructor when reading from a file
     public Result(String name, String ID, String date, String time, String distance,String discipline){
-        this.distance = Integer.parseInt(distance);
+        this.distance = distance;
         this.ID = ID;
         this.name = name;
         this.time = time;
@@ -31,11 +31,11 @@ public class Result {
 
 
     //getters and setters
-    public void setDistance(int distance){
+    public void setDistance(String distance){
         this.distance = distance;
     }
 
-    public int getDistance(){
+    public String getDistance(){
         return distance;
     }
 

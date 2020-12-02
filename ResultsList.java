@@ -5,12 +5,16 @@ import java.util.*;
 public class ResultsList {
 
     //making an array list
-    private ArrayList<Result> results;
+    public ArrayList<Result> results = new ArrayList<Result>();
     
     public ResultsList() { 
-       /*results = new ArrayList<Results>(); No clue why this is here but it fuckes up the code so I commented it out*/
+        ArrayList<Result> results = new ArrayList();        
         loadResults(); 
        }
+
+    public ArrayList<Result> getResults(){
+        return results;
+    }
 
     //adding results 
     public void addResult(Result result){
@@ -22,7 +26,6 @@ public class ResultsList {
         try { 
             Scanner read = new Scanner(new File("RESULTS.TXT"));
             while (read.hasNextLine()){
-                /*results.add(new Result(read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine()));*/
                 addResult(new Result(read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine()));
             }
         } catch (Exception e) {
@@ -57,6 +60,12 @@ public class ResultsList {
             }
         }   
     }
+
+    public void printResults(){
+        for (int i = 0; i < results.size(); i++){
+           System.out.println(results.get(i).toString());
+        }
+     }
 
     
 }

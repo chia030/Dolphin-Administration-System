@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class Chairman extends Employee {
 
     public Chairman() {
@@ -13,5 +15,6 @@ public class Chairman extends Employee {
     public void editMember() {}
    
     public void assignCoach() {}
+    
 
 }

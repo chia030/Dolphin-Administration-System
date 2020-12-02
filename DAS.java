@@ -1,24 +1,22 @@
 public class DAS {
 
+   public static boolean sentinelDAS = false;
+
    public static void main(String[] args) throws InterruptedException {
    
-      boolean sentinel = false;
       
-      do { //this loop does not do anything at the moment, it would be useful to log off in the future
+      do {
+         
+         sentinelDAS = false;
+         
+         DAS_INTERFACE das = new DAS_INTERFACE();
+         das.systemStart();
+      
+         DAS_INTERFACE logged = new DAS_INTERFACE(das.userTYPE);
+         logged.userInterface();
 
-      DAS_INTERFACE das = new DAS_INTERFACE();
-   
-      das.systemStart();
-//      System.out.println(das.userID+" "+das.userPIN); //twas a test
+      } while(sentinelDAS);
 
-      DAS_INTERFACE logged = new DAS_INTERFACE(das.userTYPE);
-      
-      
-      } while(sentinel);
-      
-      
-   
-   
    }
 
 }
