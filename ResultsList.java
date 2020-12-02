@@ -11,9 +11,41 @@ public class ResultsList {
         ArrayList<Result> results = new ArrayList();        
         loadResults(); 
        }
+    
+    public ResultsList(boolean help) { 
+        ArrayList<Result> results = new ArrayList();        
+       }
 
     public ArrayList<Result> getResults(){
         return results;
+    }
+
+    public Result getIndex(int i){
+        return results.get(i);
+    }
+
+    public int getSize(){
+        return results.size();
+    }
+    
+    public void enterResult(ResultsList rl) {
+        
+        Scanner scan = new Scanner(System.in);
+        
+        rl.addResult(new Result(scan.nextLine(),scan.nextLine(),scan.nextLine(),scan.nextLine(),scan.nextLine()));
+        rl.saveToFile();
+
+    }
+
+    public void swap(){
+        int n = results.size();
+        for (int i = 0; i < n - 1; i++)
+        for (int j = 0; j < n - i - 1; j++)
+            if (Double.parseDouble(results.get(j).getTime()) < Double.parseDouble(results.get(j + 1).getTime())) {
+                Result temp = results.get(j);
+                results.set(j, results.get(j + 1));
+                results.set(j + 1, temp);
+            }
     }
 
     //adding results 
@@ -33,16 +65,10 @@ public class ResultsList {
         }
     }
 
-    //alphabetically sorting
-    public void sortList(){
-        Collections.sort(results, Comparator.comparing(Result::getName));
-    }
-
     //save ResultsList to file
     public void saveToFile(){
         try { 
             PrintStream write = new PrintStream(new File("Results.txt"));
-            sortList();
             for(int i=0;(i<=results.size()-1);i++){
                 write.println(results.get(i).toString());
             }  
