@@ -14,13 +14,9 @@ public class DAS {
       
          DAS_INTERFACE logged = new DAS_INTERFACE(das.userTYPE);
          logged.userInterface();
-      
-      
+
       } while(sentinelDAS);
-      
-      
-   
-   
+
    }
 
 }

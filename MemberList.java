@@ -66,21 +66,21 @@ public class MemberList{
    //Prints all contents of member list
    public void printMembers(){
       for (int i = 0; i <= members.size(); i++){
-         System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
+         System.out.println(members.get(i).toString());
       }
    }
    
    
    //Prints the list that shows the unpaid members at the top and paid ones on the bottom (for the treasurer)
-    public void printUnpaidPaid() {
+    public void printTrList() {
         for (int i = 0; i <= members.size(); i++) {
             if (!members.get(i).getValidity()) {
-                System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
+                System.out.println(members.get(i).toString());
                }
             }
         for (int i = 0; i <= members.size(); i++) {
             if (members.get(i).getValidity()) {
-                System.out.println("ID: " + members.get(i).getID() + "\nName: " + members.get(i).getName() + "\nAge: " + members.get(i).getAge() + "\nAge group: " + members.get(i).getAgeRange() + "\nAddress: " + members.get(i).getAddress() + "\nDiscipline: " + members.get(i).getDiscipline() + "\nType: " + members.get(i).getType() + "\nValidity: " + members.get(i).getValidity() + "\nActivity: " + members.get(i).getActivityLevel() + "\nRegistration date: " + members.get(i).getRegDate() + "\n-----------------");
+                System.out.println(members.get(i).toString());
             }
         }
     }

@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class Treasurer extends Employee {
 
     public Treasurer() {
@@ -9,11 +11,6 @@ public class Treasurer extends Employee {
 
     public void registerPayment() {}
     
-    
-   public void printUnpaidPaid () throws FileNotFoundException {
-        MemberList ml = new MemberList(); //the memberlist cannot be instantiated here!
-        ml.scanFile();
-        ml.printUnpaidPaid();
-    }
+
 
 }

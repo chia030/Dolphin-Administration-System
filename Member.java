@@ -43,8 +43,12 @@ public class Member {
       
    }  
    
-   public String toString(){ // I don't know what you guys think of this. Feel free to format it in another way or remove/add stuff.
-      return "ID: " + this.memID + " Name: " + this.memID + " Date of Birth: " + this.memDOB + " Age: " + this.memAge + " Address: " + this.address + " Discipline: " + this.favDiscipline + " Membership price: " + this.memPrice + " Registration date: " + this.regDate + " Member level: " + this.memType + " Age classification: " + this.ageRange + " Membership validity: " + this.memValidity + " Membership level: " + this.activityLevel + ".";
+   public String toString() { 
+      return "ID: " + this.memID + " Name: " + this.memID + " Date of Birth: " 
+             + this.memDOB + " Age: " + this.memAge + " Address: " + this.address + " Discipline: " 
+             + this.favDiscipline + " Membership price: " + this.memPrice + " Registration date: " + this.regDate 
+             + " Member level: " + this.memType + " Age classification: " + this.ageRange + " Membership validity: " 
+             + this.memValidity + " Membership level: " + this.activityLevel + ".";
    }
 
 // CONSTRUCTOR FOR THE registerMember() METHOD (Chairman Class):    

@@ -13,7 +13,7 @@ public class Coach extends Employee {
 
     public void enterResult(String name,int distance,String time, String discipline) {
 
-       Result r = new Result(name, distance, time, discipline);
+//     Result r = new Result(name, distance, time, discipline);
 //     results.addResult(r); //this will probably be moved to the main
     
     }
