@@ -28,6 +28,8 @@ public class Member {
    private String ageRange; //ageRange: "JUNIOR"/"SENIOR"
    private boolean memValidity = false;
    private boolean activityLevel; //activityLevel: ACTIVE(true)/PASSIVE(false)
+   private static LocalTime passiveStart = LocalTime.parse("06:00");
+   private static LocalTime passiveEnd = LocalTime.parse("16:00");
    
    public void setMembershipPrice(){
    
@@ -44,13 +46,13 @@ public class Member {
    }  
    
    public String toString() { 
-      return "ID: " + this.memID + " Name: " + this.memID + " Date of Birth: " 
-             + this.memDOB + " Age: " + this.memAge + " Address: " + this.address + " Discipline: " 
-             + this.favDiscipline + " Membership price: " + this.memPrice + " Registration date: " + this.regDate 
-             + " Member level: " + this.memType + " Age classification: " + this.ageRange + " Membership validity: " 
-             + this.memValidity + " Membership level: " + this.activityLevel + ".";
+      return "ID: " + this.memID + " /nName: " + this.memName + " /nDate of Birth: " 
+             + this.memDOB + " /nAge: " + this.memAge + " /nAddress: " + this.address + " /nDiscipline: " 
+             + this.favDiscipline + " /nMembership price: " + this.memPrice + " /nRegistration date: " + this.regDate 
+             + " /nMember level: " + this.memType + " /nAge classification: " + this.ageRange + " /nMembership validity: " 
+             + this.memValidity + " /nMembership level: " + this.activityLevel + ".";
    }
-
+   
 // CONSTRUCTOR FOR THE registerMember() METHOD (Chairman Class):    
    public Member(String name, LocalDate birth, String address, String disc, String membership, boolean level) {
     
@@ -184,8 +186,14 @@ public class Member {
    }   
    
    
-   public void setValidity(boolean memValidity) { 
-      this.memValidity = memValidity; 
+   public void setValidity(){ //Should work to set the validity? Someone else will have to check it for me though, because idk if it'll work with everything
+      if ((this.activityLevel = false) && (LocalDate.now().isAfter(this.passiveStart)) && (LocalTime.now()isBefore(this.passiveEnd))){
+         this.memValidity = true;
+      }else if((this.activityLevel = false) && (LocalDate.now().isBefore(this.passiveStart)) || (LocalDate.now().isAfter(this.passiveEnd))){
+         this.memValidity = false;
+      }else{
+         this.memValidity = true;
+      }
    }
    
    public boolean getValidity() { 
