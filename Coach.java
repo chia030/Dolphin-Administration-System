@@ -106,9 +106,9 @@ public class Coach extends Employee {
             back4.printResults();
             System.out.println("Top Swimmers of butterfly in 100 m are!");
             butterfly.printResults();
-            System.out.println("Top Swimmers of butterfly in 100 m are!");
+            System.out.println("Top Swimmers of butterfly in 200 m are!");
             butterfly2.printResults();
-            System.out.println("Top Swimmers of butterfly in 100 m are!");
+            System.out.println("Top Swimmers of butterfly in 400 m are!");
             butterfly4.printResults();
 
     }
