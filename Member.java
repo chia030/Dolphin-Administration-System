@@ -213,9 +213,6 @@ public class Member {
    public boolean getValidity() { 
       return memValidity; 
    }
-    
-    
-
 
 // the ActivityLevel will be true when the membership is active and false when the membership is passive!
 // there will be a method in the Treasurer class to set it to true

@@ -55,7 +55,7 @@ public class ResultsList {
         System.out.println("Enter Time(Format minute.second)");
         rl.getIndex(getSize()-1).setTime(scan.nextLine());
 
-        System.out.println("Enter Discipline(breaststroke,front crawl,backstroke,butterfly)");
+        System.out.println("Enter Discipline(breaststroke,frontcrawl,backstroke,butterfly)");
         rl.getIndex(getSize()-1).setDiscipline(scan.nextLine());
 
         rl.getIndex(getSize()-1).setDate();

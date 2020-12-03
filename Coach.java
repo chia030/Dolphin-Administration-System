@@ -44,7 +44,7 @@ public class Coach extends Employee {
                         System.out.println("Top Swimmers of breaststroke in 400 m are!");
                         breast4.printResults();
                     break;    
-                    case "front crawl" :
+                    case "frontcrawl" :
                         ResultsList front2 = new ResultsList(false);
                         ResultsList front = new ResultsList(false);
                         ResultsList front4 = new ResultsList(false);
@@ -53,11 +53,11 @@ public class Coach extends Employee {
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==200){front2.addResult(rl.getIndex(i));}
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==400){front4.addResult(rl.getIndex(i));}    
                         }
-                        System.out.println("Top Swimmers of front crawl in 100 m are!");
+                        System.out.println("Top Swimmers of frontcrawl in 100 m are!");
                         front.printResults();
-                        System.out.println("Top Swimmers of front crawl in 200 m are!");
+                        System.out.println("Top Swimmers of frontcrawl in 200 m are!");
                         front2.printResults();
-                        System.out.println("Top Swimmers of front crawl in 400 m are!");
+                        System.out.println("Top Swimmers of frontcrawl in 400 m are!");
                         front4.printResults();
                         break;
                     
@@ -115,7 +115,7 @@ public class Coach extends Employee {
                         System.out.println("Top Swimmers of breaststroke in 400 m are!");
                         breast4.printResults();
                     break;    
-                    case "front crawl" :
+                    case "frontcrawl" :
                         ResultsList front2 = new ResultsList(false);
                         ResultsList front = new ResultsList(false);
                         ResultsList front4 = new ResultsList(false);
@@ -124,11 +124,11 @@ public class Coach extends Employee {
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==200){front2.addResult(rl.getIndex(i));}
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==400){front4.addResult(rl.getIndex(i));}    
                         }
-                        System.out.println("Top Swimmers of front crawl in 100 m are!");
+                        System.out.println("Top Swimmers of frontcrawl in 100 m are!");
                         front.printResults();
-                        System.out.println("Top Swimmers of front crawl in 200 m are!");
+                        System.out.println("Top Swimmers of frontcrawl in 200 m are!");
                         front2.printResults();
-                        System.out.println("Top Swimmers of front crawl in 400 m are!");
+                        System.out.println("Top Swimmers of frontcrawl in 400 m are!");
                         front4.printResults();
                         break;
                     
