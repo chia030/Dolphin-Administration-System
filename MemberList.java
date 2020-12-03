@@ -5,15 +5,28 @@ import java.time.*;
 public class MemberList{
 
    LocalDate date;
+   PrintWriter writer = null;
+   FileWriter fw = null;
 
    private ArrayList<Member> members;   
    
    //CONSTRUCTOR:
-   public MemberList() throws FileNotFoundException /*maybe we should catch this exception*/ {
-   
+   public MemberList(){
+        
+        membersFile();
         ArrayList<Member> members = new ArrayList<Member>();        
         scanFile();
    
+   }
+   
+   public void membersFile() {
+   
+    try {
+    
+       fw = new FileWriter(DAS.MEMBERLISTFILE, true);
+            
+     } catch (Exception e) { e.printStackTrace(); }    
+
    }
    
    //Returns the size
@@ -37,8 +50,8 @@ public class MemberList{
    
     boolean existingID = false;
    
-     for (int i=0; i <= members.size(); i++) { 
-        if (members.get(i).getID() == ID) existingID = true;
+     for (Member i: members) { 
+        if (i.getID() == ID) existingID = true;
         else existingID = false;
      }
      
@@ -48,16 +61,19 @@ public class MemberList{
    
    //Deletes member based on ID
    public void deleteMember(int newID){
-      for (int i = 0; i <= members.size(); i++){
-         if (members.get(i).getID() == newID){
+      for (Member i: members){
+         if (i.getID() == newID){
             members.remove(i);
          }
       }
    }
    
    //Loads file
-   public void scanFile() throws FileNotFoundException{
-      Scanner scanFile = new Scanner(new File("Member List.txt"));
+   public void scanFile() {
+   
+    try {
+         
+      Scanner scanFile = new Scanner(DAS.MEMBERLISTFILE);
       while (scanFile.hasNextLine()){
       
          addMember(new Member(scanFile.nextInt(), scanFile.next(),
@@ -65,44 +81,63 @@ public class MemberList{
          date.of(scanFile.nextInt(), scanFile.nextInt(), scanFile.nextInt()), scanFile.nextBoolean()));
          
       }
+      
+    } catch (Exception e) { e.printStackTrace(); }
+    
    }
    
    //Prints all contents of member list
    public void printMembers(){
-      for (int i = 0; i <= members.size(); i++){
-         System.out.println(members.get(i).toString());
+      for (Member i: members){
+         System.out.println(i.toString());
       }
    }
    
    
    //Prints the list that shows the unpaid members at the top and paid ones on the bottom (for the treasurer)
     public void printTrList() {
-        for (int i = 0; i <= members.size(); i++) {
-            if (!members.get(i).getValidity()) {
-                System.out.println(members.get(i).toString());
+    
+        for (Member i: members) {
+            if (!i.getValidity()) {
+                System.out.println(i.toString());
                }
             }
-        for (int i = 0; i <= members.size(); i++) {
-            if (members.get(i).getValidity()) {
-                System.out.println(members.get(i).toString());
+            
+        for (Member j: members) {
+            if (j.getValidity()) {
+                System.out.println(j.toString());
             }
         }
     }
        
    
    //Saves to file (when exiting program): or why use if statements when you can use try and catch :)
-   public void save() throws FileNotFoundException{
-      PrintStream save = new PrintStream(new File ("Member List.txt"));
-      try{
-         try{
-            for (int i = 0; i <= (members.size() - 1); i++){
-               save.println(members.get(i).memberFileSave());
-            }
-            save.print(members.get(members.size() - 1).memberFileSave());
-         }catch (Exception e){
-            save.print(members.get(0).memberFileSave());
-         }
-      }catch (Exception e) { e.printStackTrace(); }
+   public void saveToFile() {
+      
+      try {
+          fw = new FileWriter(DAS.MEMBERLISTFILE, false);
+          writer = new PrintWriter(fw);
+      } catch (Exception e) { e.printStackTrace(); }
+      
+      
+      for (Member i: members) {
+            writer.println(i.memberFileSave());
+      }
+      
+      writer.close();      
+
+      
+//       try{
+//          try{
+//             for (int i = 0; i <= (members.size() - 1); i++){
+//                writer.println(members.get(i).memberFileSave());
+//             }
+//             writer.print(members.get(members.size() - 1).memberFileSave());
+//          }catch (Exception e){
+//             writer.print(members.get(0).memberFileSave());
+//          }
+//       }catch (Exception e) { e.printStackTrace(); }
+      
    }
    
 }
