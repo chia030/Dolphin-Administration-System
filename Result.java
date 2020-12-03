@@ -2,6 +2,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.*;
 
 public class Result {
+    private String type;
     private String distance;   
     private String name;
     private String time;
@@ -10,7 +11,8 @@ public class Result {
     private String ID;
 
     //constructor when creating a result
-    public Result(String name, String ID, String distance,String time, String discipline){
+    public Result(String type, String name, String ID, String distance,String time, String discipline){
+        this.type = type;
         this.distance = distance;
         this.ID = ID;
         this.name = name;
@@ -20,8 +22,9 @@ public class Result {
     }
 
     //constructor when reading from a file
-    public Result(String name, String ID, String date, String time, String distance,String discipline){
+    public Result(String type, String name, String ID, String date, String time, String distance,String discipline){
         this.distance = distance;
+        this.type = type;
         this.ID = ID;
         this.name = name;
         this.time = time;
@@ -42,6 +45,14 @@ public class Result {
 
     public String getDistance(){
         return distance;
+    }
+
+    public void setType(String type){
+        this.type = type;
+    }
+
+    public String getType(){
+        return type;
     }
 
     public void setID(String ID){
@@ -86,7 +97,7 @@ public class Result {
 
     //turn all info into string
     public String toString(){
-        return getName()+" \n"+getID()+"\n"+getDate()+"\n"+getTime()+"\n"+getDistance()+"\n"+getDiscipline();
+        return getName()+" \n"+getType()+" \n"+getID()+"\n"+getDate()+"\n"+getTime()+"\n"+getDistance()+"\n"+getDiscipline();
     }
 
 }

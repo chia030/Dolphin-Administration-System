@@ -39,6 +39,8 @@ public class ResultsList {
         MemberList ml = new MemberList();
 
         rl.addResult(new Result());
+        System.out.println("Enter Type(Competition/Training)");
+        rl.getIndex(getSize()-1).setType(scan.nextLine());
         System.out.println("Enter ID");
         rl.getIndex(getSize()-1).setID(scan.nextLine());
 
@@ -84,7 +86,7 @@ public class ResultsList {
         try { 
             Scanner read = new Scanner(new File("RESULTS.TXT"));
             while (read.hasNextLine()){
-                addResult(new Result(read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine()));
+                addResult(new Result(read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine()));
             }
         } catch (Exception e) {
             e.printStackTrace(); //priting out current error
