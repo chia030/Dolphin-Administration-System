@@ -1,6 +1,12 @@
 public class DAS {
 
    public static boolean sentinelDAS = false;
+   
+   public static final String MEMBERLISTFILE = "lists/MemberList.txt";
+   public static final String RESULTLISTFILE = "lists/ResultList.txt";
+   
+   
+   
 
    public static void main(String[] args) throws InterruptedException {
    
