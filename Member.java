@@ -30,6 +30,7 @@ public class Member {
    private boolean activityLevel; //activityLevel: ACTIVE(true)/PASSIVE(false)
    private static LocalTime passiveHoursStart = LocalTime.parse("06:00");
    private static LocalTime passiveHoursEnd = LocalTime.parse("16:00");
+   private boolean memCard = false;
    
    public void setMembershipPrice(){
    
@@ -55,9 +56,9 @@ public class Member {
    
    public String memberFileSave() {
    
-        return this.memID+" "+this.memName+" "+this.memDOB.getYear()+" "+this.memDOB.getMonthValue()+" "+this.memDOB.getDayOfMonth()+" "+this.address+" "
-        +this.favDiscipline +" "+this.memType+" "+this.activityLevel+" "+this.regDate.getYear()+" "+this.regDate.getMonthValue()+" "+this.regDate.getDayOfMonth()
-        +" "+this.memValidity;
+      return this.memID+" "+this.memName+" "+this.memDOB.getYear()+" "+this.memDOB.getMonthValue()+" "+this.memDOB.getDayOfMonth()+" "+this.address+" "
+         +this.favDiscipline +" "+this.memType+" "+this.activityLevel+" "+this.regDate.getYear()+" "+this.regDate.getMonthValue()+" "+this.regDate.getDayOfMonth()
+         +" "+this.memValidity;
    
    }
    
@@ -196,11 +197,16 @@ public class Member {
    
    public void setValidity(){ //Should work to set the validity? Someone else will have to check it for me though, because idk if it'll work with everything
       
-      if (this.activityLevel == false && LocalTime.now().isAfter(this.passiveHoursStart) && LocalTime.now().isBefore(this.passiveHoursEnd)) this.memValidity = true; 
+      if(this.activityLevel == false && LocalTime.now().isAfter(this.passiveHoursStart) && LocalTime.now().isBefore(this.passiveHoursEnd)){
+         this.memCard = true;
+      } 
       
-      else if(this.activityLevel == false && LocalTime.now().isBefore(this.passiveHoursStart) || LocalTime.now().isAfter(this.passiveHoursEnd)) this.memValidity = false;
-      
-      else this.memValidity = true;
+      else if(this.activityLevel == false && LocalTime.now().isBefore(this.passiveHoursStart) || LocalTime.now().isAfter(this.passiveHoursEnd)){
+         this.memCard = false;
+      }  
+      else{
+         this.memCard = true;
+      }
       
    }
    
