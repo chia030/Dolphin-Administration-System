@@ -8,9 +8,11 @@ public class Coach extends Employee {
         super(UserType.COACH);
      
      }
-
+     
+     //making a results list
      ResultsList rl = new ResultsList();
-
+     
+     //entering results
      public void enterResult() {
         
         Scanner scan = new Scanner(System.in);
@@ -23,12 +25,12 @@ public class Coach extends Employee {
         scan.close();
 
     }
-
+     
+    //viewin all the results
     public void viewResults(){
         rl.printResults();
     }
       
-
     public void seeTop(){
         rl.loadResults();
         ResultsList breast = new ResultsList(false);
