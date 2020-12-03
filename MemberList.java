@@ -6,8 +6,7 @@ public class MemberList{
 
    LocalDate date;
 
-   private ArrayList<Member> members;
-   
+   private ArrayList<Member> members;   
    
    //CONSTRUCTOR:
    public MemberList() throws FileNotFoundException /*maybe we should catch this exception*/ {
@@ -17,6 +16,15 @@ public class MemberList{
    
    }
    
+   //Returns the size
+   public int getSize(){
+      return members.size();
+  }
+
+  //method to get result at an index
+  public Member getIndex(int i){
+   return members.get(i);
+}
    
    //Adds a new member
    public void addMember(Member m){

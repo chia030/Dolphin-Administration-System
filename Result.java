@@ -29,6 +29,11 @@ public class Result {
         this.date = date;
     }
 
+    //construct needed when entering a result
+    public Result(){
+
+    }
+
 
     //getters and setters
     public void setDistance(String distance){
@@ -79,6 +84,7 @@ public class Result {
         return discipline;
     }
 
+    //turn all info into string
     public String toString(){
         return getName()+" \n"+getID()+"\n"+getDate()+"\n"+getTime()+"\n"+getDistance()+"\n"+getDiscipline();
     }
