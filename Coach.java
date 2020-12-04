@@ -13,14 +13,16 @@ public class Coach extends Employee {
      //entering results
      public void enterResult(){
     }
-     
+    
+    ResultsList rl = new ResultsList();
+
     //viewin all the results
     public void viewResults(){
         rl.printResults();
     }
     
     //viewin top 5 swimmers based on training/competition and later on based on entered discipline
-    public void seeTop(MemberList ml) throws FileNotFoundException {
+    public void seeTop() throws FileNotFoundException {
         Scanner scan = new Scanner(System.in);
         switch(scan.nextLine()){
             case "competition" : 

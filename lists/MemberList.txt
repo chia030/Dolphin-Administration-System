@@ -24,3 +24,4 @@
 5357 Stone 1991 9 17 Karloveska frontcrawl exercise true 2020 8 18 true
 7432 Dalton 2010 12 12 Patronka backstroke exercise false 2020 9 19 true
 1747 babavui 3232 3 13 asafafafa FRONTCRAWL ELITE true 2020 12 4 true
+4045 Wick 1953 2 28 GenericAddressName BREASTSTROKE ELITE true 2020 12 4 true
