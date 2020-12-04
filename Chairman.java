@@ -36,7 +36,11 @@ public class Chairman extends Employee {
     
     }
    
-    public void assignCoach() {}
+    public void assignCoach() {
+    
+        //this function of the chairman class will be implemented in the future 
+    
+    }
     
 
 }

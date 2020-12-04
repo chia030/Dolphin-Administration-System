@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.time.*;
 
 public class ResultsList {
 
@@ -11,16 +12,17 @@ public class ResultsList {
     
     //constructor when creating a main arraylist
     public ResultsList() {
-    
+        
+        File file = new File(DAS.RESULTLISTFILE);
         resultsFile();
-        ArrayList<Result> results = new ArrayList();        
-        loadResults(); 
+        results = new ArrayList<Result>();        
+        loadResults(file); 
         
        }
     
     //constructor when making a results list for separate disciplines
     public ResultsList(boolean help) { 
-        ArrayList<Result> results = new ArrayList();        
+        results = new ArrayList<Result>();        
        }
 
     //method to get results
@@ -39,10 +41,9 @@ public class ResultsList {
     }
         
     //method to enter result
-    public void enterResult(ResultsList rl) throws FileNotFoundException {
+    public void enterResult(ResultsList rl, MemberList ml) throws FileNotFoundException {
         
         Scanner scan = new Scanner(System.in);
-        MemberList ml = new MemberList();
 
         rl.addResult(new Result());
         System.out.println("Enter Type(Competition/Training)");
@@ -99,17 +100,28 @@ public class ResultsList {
     }
 
     //loading results from file to results list
-    public void loadResults() { 
+    public void loadResults(File f) {
     
         try { 
-            Scanner read = new Scanner(DAS.RESULTLISTFILE);
-            while (read.hasNextLine()){
-                addResult(new Result(read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine(),read.nextLine()));
+
+            Scanner scan = new Scanner(f);
+            scan.useDelimiter("\s|\r\n"); // \s = space OR \r = end of line, \n = new line
+            
+            
+            while (scan.hasNext()){
+                addResult(
+                new Result(scan.nextInt(), //id
+                scan.nextBoolean(), //iscompetitive?
+                scan.nextInt(), //distance
+                scan.nextDouble(), //time
+                scan.nextInt(), //discipline
+                LocalDate.of(scan.nextInt(), scan.nextInt(), scan.nextInt()))); //date
             }
-        } catch (Exception e) {
-            e.printStackTrace(); //priting our current error
+            
+         } catch (Exception e) { e.printStackTrace(); } 
+
         }
-    }
+
 
 
     //save ResultsList to file when closing the program
@@ -123,7 +135,7 @@ public class ResultsList {
       
       
       for (Result i: results) {
-            writer.println(i.toString());
+            writer.println(i);
       }
       
       writer.close();      
@@ -131,7 +143,7 @@ public class ResultsList {
     }
     
     //delete results from results list
-    public void deleteResult(String ID){
+    public void deleteResult(int ID){
         for(Result i: results){
             if (i.getID().equals(ID)){
                 results.remove(i);
@@ -142,7 +154,7 @@ public class ResultsList {
     //print all results to console
     public void printResults(){
         for (Result i: results){
-           System.out.println(i.toString());
+           System.out.println(i);
         }
      }
 
@@ -150,7 +162,7 @@ public class ResultsList {
     public void printTopResults(){
         swap();
         for(int i=0;i<=4;i++){
-            System.out.println(results.get(i).toString());    
+            System.out.println(results.get(i));    
         }
     } 
 

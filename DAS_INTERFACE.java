@@ -180,7 +180,7 @@ public class DAS_INTERFACE {
    public static void userInterface() throws InterruptedException, FileNotFoundException {
    
         MemberList ml = new MemberList();
-//        ResultList rl = new ResultList();
+        ResultsList rl = new ResultsList();
 
         switch(userTYPE) {
         
@@ -193,7 +193,7 @@ public class DAS_INTERFACE {
                 break;
                 
             case COACH:
-                homeCoach();
+                homeCoach(ml,rl);
                 break;
         
         }   
@@ -310,12 +310,13 @@ public class DAS_INTERFACE {
    
    }
    
-   public static void homeCoach() throws InterruptedException, FileNotFoundException {
+   public static void homeCoach(MemberList ml, ResultsList rl) throws InterruptedException, FileNotFoundException {
    
     boolean sentinel;
    
     System.out.println("\n\nWelcome Coach!\n\n");
     Coach coach = new Coach();
+    
     
 //  COACH HOME LOOP:    
     do {
@@ -323,18 +324,21 @@ public class DAS_INTERFACE {
         sentinel = false;
     
         System.out.println("\nPlease select one of the following options:\n");
-        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to VIEW RANKINGS\n- [C] to VIEW ALL MEMBERS IN TRAINING\n- [Q] to LOG OUT\n");
-    
+//        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to VIEW RANKINGS\n- [C] to VIEW ALL MEMBERS IN TRAINING\n- [Q] to LOG OUT\n");
+        System.out.println("\n- [A] to SHOW RESULTS\n- [B] to VIEW RANKINGS\n- [C] to VIEW MEMBERS\n- [Q] to LOG OUT\n");
+        
         switch (scan.next().toUpperCase()) {
         
             case "A":
+                coach.viewResults(rl);
                 break;
                 
             case "B":
-                coach.seeTop();
+                coach.seeTop(ml,rl);
                 break;
                 
             case "C":
+                coach.showMemberList(ml);
                 break;
                 
             case "Q":
@@ -359,7 +363,6 @@ public class DAS_INTERFACE {
     
     boolean sentinel = false;
     
-//scan.useDelimiter("\\n");
     
     Member member = new Member();
     
@@ -698,6 +701,9 @@ public class DAS_INTERFACE {
             
    
    }
+   
+   public static void seeRank() { //help
+    }
    
    
 

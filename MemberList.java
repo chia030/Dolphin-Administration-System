@@ -124,11 +124,11 @@ public class MemberList{
     public void printTrFullList() {
     
         for (Member i: members) {
-            if (!i.getValidity()) System.out.println(+i.getID()+" "+i.getName()+"\n"); // + NOT PAID
+            if (!i.getValidity()) System.out.println(+i.getID()+" "+i.getName()+"\n"); // + "NOT PAID"
             }
             
         for (Member j: members) {
-            if (j.getValidity()) System.out.println(j.getID()+" "+j.getName()+"\n"); // + PAID
+            if (j.getValidity()) System.out.println(j.getID()+" "+j.getName()+"\n"); // + "PAID"
         }
     }
     

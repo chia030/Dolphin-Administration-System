@@ -54,7 +54,7 @@ public class Member {
              + this.memDOB + " \nAge: " + this.memAge + " \nAddress: " + this.address + " \nDiscipline: " 
              + this.favDiscipline + " \nMembership price: " + this.memPrice + ".00DKK \nRegistration date: " + this.regDate 
              + " \nMember level: " + this.memType + " \nAge classification: " + this.ageRange + " \nMembership validity: " 
-             + this.memValidity + " \nMembership level: " + this.activityLevel + ".";
+             + this.memValidity + " \nMembership level: " + this.activityLevel + ".\n\n\n";
    }
    
    public String memberFileSave() {
