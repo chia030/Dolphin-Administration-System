@@ -9,7 +9,7 @@
 9999 Wiley 1975 6 9 LadislavaSaru backstroke exercise false 2020 5 5 true
 3254 Rivera 2007 8 25 Spottrupvej butterfly exercise true 2020 6 6 true
 7325 Nunez 2013 12 30 Tilgnerova backstroke elite true 2020 7 7 true
-5655 Edmons 2015 11 19 Bilikova breaststroke elite true 2020 8 8 true
+5655 Edmons 2015 11 19 Bilikova BACKSTROKE elite true 2020 8 8 true
 4242 Freeman 2007 2 14 Jyllingvej backstroke exercise true 2020 9 9 true
 4679 Dunne 1973 9 9 Gabcikova frontcrawl exercise false 2020 10 10 true
 9325 Kearns 1995 5 5 Laurinska frontcrawl elite true 2020 11 11 true
@@ -23,4 +23,4 @@
 4714 Howard 1982 11 11 Borska frontcrawl elite true 2020 7 17 true
 5357 Stone 1991 9 17 Karloveska frontcrawl exercise true 2020 8 18 true
 7432 Dalton 2010 12 12 Patronka backstroke exercise false 2020 9 19 true
-822 afsaf 2323 2 2 afafsfasa BUTTERFLY ELITE true 2020 12 4 false
+1747 babavui 3232 3 13 asafafafa FRONTCRAWL ELITE true 2020 12 4 false

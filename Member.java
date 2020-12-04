@@ -1,10 +1,7 @@
 /* 
       
    TO DO:
-   
-     1 - format dates so they will be displayed nicely with only the info that we need ("dd-MM-yyyy")
-     2 - now we need something that limits the passive members' options, some method that will allow them to have access to the pool only in the morning for example:
-         this could be done by changing their membership to be valid only during some hours of the day (so working with memValidity)
+
      3 - maybe we should change memType to a boolean and call it something like isCompetitive and then another boolean called hasCoach so that if isCompetitive is true,
          has coach will true too (upon creation of the member, so in the constructor)      
       
@@ -32,6 +29,7 @@ public class Member {
    private static LocalTime passiveHoursEnd = LocalTime.parse("16:00");
    private boolean memCard = false;
    
+   
    public void setMembershipPrice(){
    
       if (this.ageRange.equals("Junior") && this.activityLevel){
@@ -49,7 +47,7 @@ public class Member {
    public String toString() { 
       return "ID: " + this.memID + " \nName: " + this.memName + " \nDate of Birth: " 
              + this.memDOB + " \nAge: " + this.memAge + " \nAddress: " + this.address + " \nDiscipline: " 
-             + this.favDiscipline + " \nMembership price: " + this.memPrice + " \nRegistration date: " + this.regDate 
+             + this.favDiscipline + " \nMembership price: " + this.memPrice + ".00DKK \nRegistration date: " + this.regDate 
              + " \nMember level: " + this.memType + " \nAge classification: " + this.ageRange + " \nMembership validity: " 
              + this.memValidity + " \nMembership level: " + this.activityLevel + ".";
    }
@@ -109,7 +107,7 @@ public class Member {
  //ID SETTER: there's a method to check for duplicates in the MemberList, it will be called upon the creation of a new Member!   
    public void setID() {
       Random r = new Random();
-      memID = r.nextInt(9998) + 1; 
+      memID = r.nextInt(9998) + 1000; 
       this.memID = memID; 
    }
   
@@ -137,6 +135,14 @@ public class Member {
    
    public LocalDate getDOB() { 
       return this.memDOB; 
+   }
+   
+   public String formatDOB() {
+   
+    String prettyDOB = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(this.memDOB);
+    
+    return prettyDOB;
+   
    }
     
     

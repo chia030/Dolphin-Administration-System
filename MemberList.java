@@ -11,11 +11,12 @@ public class MemberList{
    private ArrayList<Member> members;   
    
    //CONSTRUCTOR:
-   public MemberList(){
+   public MemberList() {
         
+        File file = new File(DAS.MEMBERLISTFILE);
         membersFile();
         members = new ArrayList<Member>();        
-        scanFile();
+        scanFile(file);
    
    }
    
@@ -24,7 +25,9 @@ public class MemberList{
    public void membersFile() {
    
     try {
-       fw = new FileWriter(DAS.MEMBERLISTFILE, true); //true = it is going to append to the existing file (if there is one)  
+        
+       fw = new FileWriter(DAS.MEMBERLISTFILE, true); //true = it is going to append to the existing file (if there is one)
+         
      } catch (Exception e) { e.printStackTrace(); }    
 
    }
@@ -74,11 +77,11 @@ public class MemberList{
    }
    
  //LOADING MEMBERS FROM lists/MemberList.txt
-   public void scanFile() {
+   public void scanFile(File f) {
    
     try {
          
-      Scanner scanFile = new Scanner(new File(DAS.MEMBERLISTFILE));
+      Scanner scanFile = new Scanner(f);
       
       //needs to be smarter but it works for now
       
@@ -121,15 +124,11 @@ public class MemberList{
     public void printTrList() {
     
         for (Member i: members) {
-            if (!i.getValidity()) {
-                System.out.println(i);
-               }
+            if (!i.getValidity()) System.out.println(i);
             }
             
         for (Member j: members) {
-            if (j.getValidity()) {
-                System.out.println(j);
-            }
+            if (j.getValidity()) System.out.println(j);
         }
     }
        
