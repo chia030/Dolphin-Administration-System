@@ -180,7 +180,7 @@ public class DAS_INTERFACE {
    public static void userInterface() throws InterruptedException, FileNotFoundException {
    
         MemberList ml = new MemberList();
-//        ResultList rl = new ResultList();
+        ResultsList rl = new ResultsList();
 
         switch(userTYPE) {
         
@@ -328,13 +328,46 @@ public class DAS_INTERFACE {
         switch (scan.next().toUpperCase()) {
         
             case "A":
+            sentinel = false;
+
+            Scanner scan = new Scanner(System.in);
+            MemberList ml = new MemberList();
+            ResultsList rl = new ResultsList();
+            Result result = new Result();
+    
+            System.out.println("Enter Type(Competition/Training)");
+            result.setType(scan.nextLine());
+            System.out.println("Enter ID");
+            result.setID(scan.nextLine());
+    
+            for(int i=0;i<ml.getSize();i++){
+                if(ml.getIndex(i).getID()==Integer.valueOf(result.getID())){
+                    result.setName(ml.getIndex(i).getName());
+                }
+            }
+            System.out.println("Enter Distance(100m/200m/400m)");
+            result.setDiscipline(scan.nextLine());
+    
+            System.out.println("Enter Time(Format minute.second)");
+            result.setTime(scan.nextLine());
+    
+            System.out.println("Enter Discipline(breaststroke,frontcrawl,backstroke,butterfly)");
+            result.setDiscipline(scan.nextLine());
+    
+            result.setDate();
+    
+            scan.close();
+    
+            rl.addResult(result); //this is where the error happens
+            rl.saveToFile();
                 break;
                 
             case "B":
-                coach.seeTop();
+                coach.seeTop(); //pure not working depression
                 break;
-                
             case "C":
+                ResultsList reslist = new ResultsList();
+                reslist.printResults(); //same error as first one
                 break;
                 
             case "Q":
@@ -698,8 +731,5 @@ public class DAS_INTERFACE {
             
    
    }
-   
-   
-
 
 }

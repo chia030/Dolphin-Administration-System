@@ -10,11 +10,39 @@ public class Coach extends Employee {
      
      }
 
+     ResultsList rl = new ResultsList();
+
      //entering results
-     public void enterResult(){
-    }
-    
-    ResultsList rl = new ResultsList();
+     /*public void enterResult(){
+        Scanner scan = new Scanner(System.in);
+        MemberList ml = new MemberList();
+
+        rl.addResult(new Result());
+        System.out.println("Enter Type(Competition/Training)");
+        rl.getIndex(()-1).setType(scan.nextLine());
+        System.out.println("Enter ID");
+        rl.getIndex(getSize()-1).setID(scan.nextLine());
+
+        for(int i=0;i<ml.getSize();i++){
+            if(ml.getIndex(i).getID()==Integer.valueOf(rl.getIndex(getSize()-1).getID())){
+                rl.getIndex(getSize()-1).setName(ml.getIndex(i).getName());
+            }
+        }
+        System.out.println("Enter Distance(100m/200m/400m)");
+        rl.getIndex(getSize()-1).setDiscipline(scan.nextLine());
+
+        System.out.println("Enter Time(Format minute.second)");
+        rl.getIndex(getSize()-1).setTime(scan.nextLine());
+
+        System.out.println("Enter Discipline(breaststroke,front crawl,backstroke,butterfly)");
+        rl.getIndex(getSize()-1).setDiscipline(scan.nextLine());
+
+        rl.getIndex(getSize()-1).setDate();
+        scan.close();
+        rl.saveToFile();
+    }***/
+
+    //public void newResult(){}
 
     //viewin all the results
     public void viewResults(){
