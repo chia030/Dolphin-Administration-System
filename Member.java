@@ -47,11 +47,11 @@ public class Member {
    }  
    
    public String toString() { 
-      return "ID: " + this.memID + " /nName: " + this.memName + " /nDate of Birth: " 
-             + this.memDOB + " /nAge: " + this.memAge + " /nAddress: " + this.address + " /nDiscipline: " 
-             + this.favDiscipline + " /nMembership price: " + this.memPrice + " /nRegistration date: " + this.regDate 
-             + " /nMember level: " + this.memType + " /nAge classification: " + this.ageRange + " /nMembership validity: " 
-             + this.memValidity + " /nMembership level: " + this.activityLevel + ".";
+      return "ID: " + this.memID + " \nName: " + this.memName + " \nDate of Birth: " 
+             + this.memDOB + " \nAge: " + this.memAge + " \nAddress: " + this.address + " \nDiscipline: " 
+             + this.favDiscipline + " \nMembership price: " + this.memPrice + " \nRegistration date: " + this.regDate 
+             + " \nMember level: " + this.memType + " \nAge classification: " + this.ageRange + " \nMembership validity: " 
+             + this.memValidity + " \nMembership level: " + this.activityLevel + ".";
    }
    
    public String memberFileSave() {
@@ -62,10 +62,12 @@ public class Member {
    
    }
    
+   
 // CONSTRUCTOR FOR THE registerMember() METHOD (Chairman Class):    
-   public Member(String name, LocalDate birth, String address, String disc, String membership, boolean level) {
-    
-      this.setID();
+   public Member(String name, LocalDate birth, String address, String disc, String membership, boolean level, MemberList ml) {
+   
+      do { this.setID(); } while (ml.checkID(this.memID) == true); //this is making sure we don't have the same ID more than once
+
       this.memName = name;
       this.memDOB = birth;
       this.address = address;
@@ -77,7 +79,7 @@ public class Member {
       this.setAgeRange();
       this.setMembershipPrice();
       
-      //the validity will be set from the treasurer when they actually pay!!!
+//    memValidity and memCard will be set by the treasurer when they actually pay!
     
    }
    
@@ -92,7 +94,7 @@ public class Member {
       this.favDiscipline = disc;
       this.memType = membership;
       this.activityLevel = level;
-   //      this.regDate = LocalDate.now(); //this will need to be read from a file!
+
       this.regDate = date;
       this.setAge();
       this.setAgeRange();
@@ -102,7 +104,7 @@ public class Member {
    }
 
   
-  //ID SETTER: there's a method to check for duplicates in the MemberList, it will be called upon the creation of a new Member!   
+ //ID SETTER: there's a method to check for duplicates in the MemberList, it will be called upon the creation of a new Member!   
    public void setID() {
       Random r = new Random();
       memID = r.nextInt(9998) + 1; 
@@ -184,7 +186,8 @@ public class Member {
     
     
 
-   public void setAgeRange() {  
+   public void setAgeRange() { 
+    
       if ( this.getAge() < 18) ageRange = "Junior";
       else ageRange = "Senior";
         
@@ -194,17 +197,17 @@ public class Member {
       return this.ageRange; 
    }   
    
-   
-   public void setValidity(){ //Should work to set the validity? Someone else will have to check it for me though, because idk if it'll work with everything
+// MAKES THE MEMBERSHIP CARD WORK IF PERMITTED: the passive members are only allowed to the pool at certain times!   
+   public void setCard(){
       
-      if(this.activityLevel == false && LocalTime.now().isAfter(this.passiveHoursStart) && LocalTime.now().isBefore(this.passiveHoursEnd)){
+      if(this.memValidity == true && this.activityLevel == false && LocalTime.now().isAfter(this.passiveHoursStart) && LocalTime.now().isBefore(this.passiveHoursEnd)){
          this.memCard = true;
       } 
       
-      else if(this.activityLevel == false && LocalTime.now().isBefore(this.passiveHoursStart) || LocalTime.now().isAfter(this.passiveHoursEnd)){
+      else if(this.memValidity == true && this.activityLevel == false && LocalTime.now().isBefore(this.passiveHoursStart) || LocalTime.now().isAfter(this.passiveHoursEnd)){
          this.memCard = false;
       }  
-      else{
+      else if(this.memValidity == true && this.activityLevel == true) {
          this.memCard = true;
       }
       
@@ -213,6 +216,9 @@ public class Member {
    public boolean getValidity() { 
       return memValidity; 
    }
+    
+    
+
 
 // the ActivityLevel will be true when the membership is active and false when the membership is passive!
 // there will be a method in the Treasurer class to set it to true

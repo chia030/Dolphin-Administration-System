@@ -1,9 +1,10 @@
 import java.util.*;
+import java.io.*;
 
 public class Coach extends Employee {
 
 
-     public Coach() {
+     public Coach() throws FileNotFoundException {
 
         super(UserType.COACH);
      
@@ -22,7 +23,7 @@ public class Coach extends Employee {
     }
     
     //viewin top 5 swimmers based on training/competition and later on based on entered discipline
-    public void seeTop(){
+    public void seeTop() throws FileNotFoundException {
         Scanner scan = new Scanner(System.in);
         switch(scan.nextLine()){
             case "competition" : 
@@ -36,7 +37,9 @@ public class Coach extends Employee {
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==100){breast.addResult(rl.getIndex(i));}
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==200){breast2.addResult(rl.getIndex(i));}
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==400){breast4.addResult(rl.getIndex(i));}
+                            
                         }
+                        
                         System.out.println("Top Swimmers of breaststroke in 100 m are!");
                         breast.printResults();
                         System.out.println("Top Swimmers of breaststroke in 200 m are!");
@@ -44,7 +47,7 @@ public class Coach extends Employee {
                         System.out.println("Top Swimmers of breaststroke in 400 m are!");
                         breast4.printResults();
                     break;    
-                    case "frontcrawl" :
+                    case "front crawl" :
                         ResultsList front2 = new ResultsList(false);
                         ResultsList front = new ResultsList(false);
                         ResultsList front4 = new ResultsList(false);
@@ -53,11 +56,11 @@ public class Coach extends Employee {
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==200){front2.addResult(rl.getIndex(i));}
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==400){front4.addResult(rl.getIndex(i));}    
                         }
-                        System.out.println("Top Swimmers of frontcrawl in 100 m are!");
+                        System.out.println("Top Swimmers of front crawl in 100 m are!");
                         front.printResults();
-                        System.out.println("Top Swimmers of frontcrawl in 200 m are!");
+                        System.out.println("Top Swimmers of front crawl in 200 m are!");
                         front2.printResults();
-                        System.out.println("Top Swimmers of frontcrawl in 400 m are!");
+                        System.out.println("Top Swimmers of front crawl in 400 m are!");
                         front4.printResults();
                         break;
                     
@@ -115,7 +118,7 @@ public class Coach extends Employee {
                         System.out.println("Top Swimmers of breaststroke in 400 m are!");
                         breast4.printResults();
                     break;    
-                    case "frontcrawl" :
+                    case "front crawl" :
                         ResultsList front2 = new ResultsList(false);
                         ResultsList front = new ResultsList(false);
                         ResultsList front4 = new ResultsList(false);
@@ -124,11 +127,11 @@ public class Coach extends Employee {
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==200){front2.addResult(rl.getIndex(i));}
                             if (Integer.parseInt(rl.getIndex(i).getDistance())==400){front4.addResult(rl.getIndex(i));}    
                         }
-                        System.out.println("Top Swimmers of frontcrawl in 100 m are!");
+                        System.out.println("Top Swimmers of front crawl in 100 m are!");
                         front.printResults();
-                        System.out.println("Top Swimmers of frontcrawl in 200 m are!");
+                        System.out.println("Top Swimmers of front crawl in 200 m are!");
                         front2.printResults();
-                        System.out.println("Top Swimmers of frontcrawl in 400 m are!");
+                        System.out.println("Top Swimmers of front crawl in 400 m are!");
                         front4.printResults();
                         break;
                     

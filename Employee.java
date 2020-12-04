@@ -34,7 +34,7 @@ public abstract class Employee {
         
        
         //SHOW MEMBERLIST METHOD: (the method is now very fluid and will adapt itself to the usertype that's logged in, given that it works lmao)
-        public void showMemberList(MemberList ml) throws FileNotFoundException {
+        public void showMemberList(MemberList ml) {
              
              switch(this.type) {
              

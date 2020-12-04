@@ -14,17 +14,17 @@ public class MemberList{
    public MemberList(){
         
         membersFile();
-        ArrayList<Member> members = new ArrayList<Member>();        
+        members = new ArrayList<Member>();        
         scanFile();
    
    }
    
+   public ArrayList<Member> getMemberList() { return members; }
+   
    public void membersFile() {
    
     try {
-    
-       fw = new FileWriter(DAS.MEMBERLISTFILE, true);
-            
+       fw = new FileWriter(DAS.MEMBERLISTFILE, true); //true = it is going to append to the existing file (if there is one)  
      } catch (Exception e) { e.printStackTrace(); }    
 
    }
@@ -47,38 +47,61 @@ public class MemberList{
    
 // TO MAKE SURE THE MEMBERS DON'T GET THE SAME ID WHEN THEY ARE CREATED:
    public boolean checkID(int ID) {
-   
-    boolean existingID = false;
-   
+
      for (Member i: members) { 
-        if (i.getID() == ID) existingID = true;
-        else existingID = false;
+        if (i.getID() == ID) return true; //if it finds the ID
      }
      
-     return existingID;
+     return false; //if it doesn't find the ID
 
    }
+
+// SEARCHES FOR A SPECIFIC MEMBER WITH THE ID:
+   public Member findMember(int ID) {
    
-   //Deletes member based on ID
-   public void deleteMember(int newID){
+         for (Member i: members) {
+            if (i.getID() == ID) return i; //if it finds the ID
+         }  
+
+        return null; //if it doesn't find the ID    
+   }
+   
+// DELETES MEMBER BASED ON THE ID
+   public void deleteMember(int ID){
       for (Member i: members){
-         if (i.getID() == newID){
-            members.remove(i);
-         }
+         if (i.getID() == ID) members.remove(i);
       }
    }
    
-   //Loads file
+ //LOADING MEMBERS FROM lists/MemberList.txt
    public void scanFile() {
    
     try {
          
-      Scanner scanFile = new Scanner(DAS.MEMBERLISTFILE);
-      while (scanFile.hasNextLine()){
+      Scanner scanFile = new Scanner(new File(DAS.MEMBERLISTFILE));
       
-         addMember(new Member(scanFile.nextInt(), scanFile.next(),
-         date.of(scanFile.nextInt(), scanFile.nextInt(), scanFile.nextInt()), scanFile.next(), scanFile.next(), scanFile.next(), scanFile.nextBoolean(), 
-         date.of(scanFile.nextInt(), scanFile.nextInt(), scanFile.nextInt()), scanFile.nextBoolean()));
+      //needs to be smarter but it works for now
+      
+      scanFile.useDelimiter("\s|\r\n"); // \s = space OR \r = end of line, \n = new line
+      while (scanFile.hasNext()){
+           
+
+
+         addMember(
+
+         new Member(
+         
+
+         scanFile.nextInt(), //ID
+         scanFile.next(),   //Name
+         date.of(scanFile.nextInt(), scanFile.nextInt(), scanFile.nextInt()), //DOB
+         scanFile.next(), //Address
+         scanFile.next(), //Discipline
+         scanFile.next(), //Type
+         scanFile.nextBoolean(), //Activity level
+         date.of(scanFile.nextInt(), scanFile.nextInt(), scanFile.nextInt()), //RegDate
+         scanFile.nextBoolean())); //validity
+         
          
       }
       
@@ -89,7 +112,7 @@ public class MemberList{
    //Prints all contents of member list
    public void printMembers(){
       for (Member i: members){
-         System.out.println(i.toString());
+         System.out.println(i);
       }
    }
    
@@ -99,23 +122,23 @@ public class MemberList{
     
         for (Member i: members) {
             if (!i.getValidity()) {
-                System.out.println(i.toString());
+                System.out.println(i);
                }
             }
             
         for (Member j: members) {
             if (j.getValidity()) {
-                System.out.println(j.toString());
+                System.out.println(j);
             }
         }
     }
        
    
-   //Saves to file (when exiting program): or why use if statements when you can use try and catch :)
+   //Saves to file (when exiting program)
    public void saveToFile() {
       
       try {
-          fw = new FileWriter(DAS.MEMBERLISTFILE, false);
+          fw = new FileWriter(DAS.MEMBERLISTFILE, false); //false = it is not going to append to the existing file (if there is one) but instead overwrite it
           writer = new PrintWriter(fw);
       } catch (Exception e) { e.printStackTrace(); }
       
@@ -125,18 +148,6 @@ public class MemberList{
       }
       
       writer.close();      
-
-      
-//       try{
-//          try{
-//             for (int i = 0; i <= (members.size() - 1); i++){
-//                writer.println(members.get(i).memberFileSave());
-//             }
-//             writer.print(members.get(members.size() - 1).memberFileSave());
-//          }catch (Exception e){
-//             writer.print(members.get(0).memberFileSave());
-//          }
-//       }catch (Exception e) { e.printStackTrace(); }
       
    }
    
