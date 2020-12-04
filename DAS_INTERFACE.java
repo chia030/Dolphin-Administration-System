@@ -9,6 +9,7 @@ public class DAS_INTERFACE {
     public static UserType userTYPE;
     
     
+    
 //  GUEST CONSTRUCTOR: all the variables are null
     public DAS_INTERFACE() { 
        
@@ -177,15 +178,18 @@ public class DAS_INTERFACE {
    }
    
    public static void userInterface() throws InterruptedException, FileNotFoundException {
+   
+        MemberList ml = new MemberList();
+//        ResultList rl = new ResultList();
 
         switch(userTYPE) {
         
             case CHAIRMAN:
-                homeChairman();
+                homeChairman(ml);
                 break;
                 
             case TREASURER:
-                homeTreasurer();
+                homeTreasurer(ml);
                 break;
                 
             case COACH:
@@ -200,12 +204,12 @@ public class DAS_INTERFACE {
  //add another option for the users to quit the system directly from their hub
    
    
-   public static void homeChairman() throws InterruptedException {
+   public static void homeChairman(MemberList ml) throws InterruptedException {
    
     boolean sentinel;
     System.out.println("\n\nWelcome Chairman!\n\n");
     Chairman chairman = new Chairman();
-    MemberList ml = new MemberList();
+    
     
 //  CHAIRMAN HOME LOOP:
     do {
@@ -218,13 +222,18 @@ public class DAS_INTERFACE {
         switch (scan.next().toUpperCase()) {
         
             case "A":
-                sentinel = newMember(chairman, ml);
+                newMember(chairman, ml);
+                ml.saveToFile();
+                sentinel = true;
                 break;
                 
             case "B":
+//                ml.saveToFile();
                 break;
                 
             case "C":
+                chairman.showMemberList(ml);
+                sentinel = true;
                 break;
                 
             case "Q":
@@ -247,7 +256,7 @@ public class DAS_INTERFACE {
    
    
    
-   public static void homeTreasurer() throws InterruptedException {
+   public static void homeTreasurer(MemberList ml) throws InterruptedException {
    
     boolean sentinel;
     System.out.println("\n\nWelcome Treasurer!\n\n");
@@ -337,29 +346,29 @@ public class DAS_INTERFACE {
    
    }
    
-   public static boolean newMember(Chairman chairman, MemberList ml) throws InterruptedException {
+   public static void newMember(Chairman chairman, MemberList ml) throws InterruptedException {
     
     boolean sentinel = false;
     
-    String name = null;
-    int dayDOB = 0;
-    int monthDOB = 0;
-    int yearDOB = 0;
-    String address = null;
-    int discipline = 0;
-    String verboseDisc = null;
-    int type = 0;
-    String verboseType = null;
-    int level = 0;
-    boolean actualLevel = false;
+//scan.useDelimiter("\\n");
     
-    String infoPrint = "Last Name: "+name+"\nDate of birth: "+dayDOB+"/"+monthDOB+"/"+yearDOB+"\nAddress: "+address+"\nPreferred Discipline: "+verboseDisc+
-                       "\nMembership Type: "+verboseType+"\nActive Membership: "+actualLevel; 
+    Member member = new Member();
     
+    String name;
+    String address;
+    int dayDOB=0;
+    int monthDOB=0;
+    int yearDOB=0;
+    int discipline=0;
+    int type=0;
+    int level=0;
+
     System.out.println(CLEARCONSOLE);
     
     System.out.print("\n\nCreating a new DSC Member...\n\n\nLast Name: "); //memName //takes all sorts of ?!@ characters for now
+    
     name = scan.next();
+    member.setName(name);
 
         do {
         sentinel = false;
@@ -374,12 +383,17 @@ public class DAS_INTERFACE {
                 } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); dayDOB=0; monthDOB=0; yearDOB=0; }
             
          if (dayDOB>31 || dayDOB<1 || monthDOB>12 || monthDOB<1) { sentinel = true; System.out.println("\nThat's not a valid input!"); }
-         //add something that checks whether the #digits exceed the limit for local date
+         
+         // TRIES TO CREATE A ``LocalDate`` VALUE (OF memDOB) WITH THE GIVEN INPUT:
+         try { member.setDOB_2(yearDOB, monthDOB, dayDOB); } catch (Exception e) { sentinel = true; System.out.println("\nThis format is invalid! :("); }
             
-        } while (sentinel);
+         } while (sentinel);
+        
+
             
-    System.out.print("\n\nAddress [STREET] [CIVIC NUMBER], [ZIP CODE], [CITY] : "); //address //takes all sorts of ?!@ characters for now
+    System.out.print("\n\nAddress [STREET] [CITY] (no numbers) : "); //address //takes all sorts of ?!@ characters for now //doesn't like numbers //fix
     address = scan.next();
+    member.setAddress(address);
     
     do {
         sentinel = false;
@@ -390,20 +404,20 @@ public class DAS_INTERFACE {
         
             switch (discipline = Integer.parseInt(scan.next())) { //favDiscipline (as an ``int``)        
                 case 1:
-                    verboseDisc = "BREASTSTROKE"; //also determining the corresponding ``String``
+                    member.setDiscipline("BREASTSTROKE"); //also setting the corresponding ``String``
                     break;
                 case 2:
-                    verboseDisc = "FRONTCRAWL";
+                    member.setDiscipline("FRONTCRAWL");
                     break;
                 case 3:
-                    verboseDisc = "BACKSTROKE";
+                    member.setDiscipline("BACKSTROKE");
                     break;
                 case 4:
-                    verboseDisc = "BUTTERFLY";
+                    member.setDiscipline("BUTTERFLY");
                     break;    
              }
                      
-        } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); }
+        } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); discipline = 0;}
         
         if (discipline<1 || discipline>4) { sentinel = true; System.out.println("\nThat's not a valid input!"); }
             
@@ -418,14 +432,14 @@ public class DAS_INTERFACE {
         
             switch(type = Integer.parseInt(scan.next())) {        //memType (as an ``int``)
                 case 1:
-                    verboseType = "EXERCISE"; //also determining the corresponding ``String``
+                    member.setType("EXERCISE"); //also setting the corresponding ``String``
                     break;
                 case 2:
-                    verboseType = "ELITE";
+                    member.setType("ELITE");
                     break;
             }
 
-        } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); }
+        } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); type = 0; }
             
         if (type<1 || type>2) { sentinel = true; System.out.println("\nThat's not a valid input!"); }
         
@@ -439,60 +453,68 @@ public class DAS_INTERFACE {
         
             switch (level = Integer.parseInt(scan.next())) {  //activityLevel (as an ``int``)
                 case 1:
-                    actualLevel = true; //also determining the corresponding ``boolean``
+                    member.setActivityLevel(true); //also setting the corresponding ``boolean``
                     break;
                 case 2:
-                    actualLevel = false;
+                    member.setActivityLevel(false);
                     break;
             }
                      
-        } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); }
+        } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); level = 0; }
             
         if (level<1 || level>2) { sentinel = true; System.out.println("\nThat's not a valid input!"); }
         
         } while (sentinel);
         
+        String infoPrint = "Last Name: "+member.getName()+"\nDate of birth: "+member.getDOB()+"\nAddress: "+member.getAddress()+"\nPreferred Discipline: "+
+                           member.getDiscipline()+"\nMembership Type: "+member.getType()+"\nActive Membership: "+member.getActivityLevel(); 
+        
         
         System.out.println("This is the information of the new member: \n\n");
         System.out.println(infoPrint);
         Thread.sleep(SHORTPAUSE);
-        System.out.println("\n\n\nWould you like to continue?? [Y] or [N]\n\n");
+        
         
         do {
+        
+        System.out.println("\n\n\nWould you like to continue?? [Y] or [N]\n\n");
         
         boolean s = false;
         
         switch (scan.next().toUpperCase()) {
         
+            
+        
             case "Y":
                 try {
-                    chairman.registerMember(name, LocalDate.of(yearDOB, monthDOB, dayDOB), address, verboseDisc, verboseType, actualLevel, ml);
+                    chairman.registerMember(member, ml);
                     sentinel = false;
                     } catch (Exception e) { 
-                        System.out.println("\n\nSomething went wrong :(\n\nReturning to home page...\n\n"); //in case the date doesn't correspond to the format!
-                        Thread.sleep(SHORTPAUSE);
+                        System.out.println("\n\nSomething went wrong :(\n\nReturning to home page...\n\n"); 
                         sentinel = true;
-                        System.out.println(CLEARCONSOLE);
                         
                     }
                 break;
             
             case "N":
-                System.out.println("\n\nReturning to home page...\n\n");  //add another request for confirmation, they would lose all the progress!
-                Thread.sleep(SHORTPAUSE);
+                System.out.println("\n\nReturning to home page...\n\n");  //we should add another request for confirmation, they would lose all the progress!
+                
                 sentinel = true;
-                System.out.println(CLEARCONSOLE);
+                
+                break;
                 
             default:
                 System.out.println("\n\nPlease enter a valid input!\n\n");
+                Thread.sleep(SHORTPAUSE);
                 s = true;
                 
         }
         
    } while (s);     
-   if (sentinel == false) System.out.println("\n\nThe new member has been added successfully!\n\n");
+   if (sentinel == false) System.out.println("\n\nThe new member has been added successfully!\n\n"); //add short pause
    
-   return sentinel;
+   Thread.sleep(SHORTPAUSE);
+   System.out.println(CLEARCONSOLE);
    
    }
    

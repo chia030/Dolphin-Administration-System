@@ -62,6 +62,8 @@ public class Member {
    
    }
    
+   public Member() {}
+   
    
 // CONSTRUCTOR FOR THE registerMember() METHOD (Chairman Class):    
    public Member(String name, LocalDate birth, String address, String disc, String membership, boolean level, MemberList ml) {
@@ -127,6 +129,10 @@ public class Member {
 
    public void setDOB(LocalDate memDOB) { 
       this.memDOB = memDOB; 
+   }
+   
+   public void setDOB_2(int year, int month, int day) {
+      this.memDOB = LocalDate.of(year, month, day);
    } 
    
    public LocalDate getDOB() { 
@@ -188,8 +194,8 @@ public class Member {
 
    public void setAgeRange() { 
     
-      if ( this.getAge() < 18) ageRange = "Junior";
-      else ageRange = "Senior";
+      if ( this.getAge() < 18) ageRange = "JUNIOR";
+      else ageRange = "SENIOR";
         
    }
     

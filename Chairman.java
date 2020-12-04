@@ -10,9 +10,9 @@ public class Chairman extends Employee {
      
      }
 
-    public void registerMember(String name, LocalDate birth, String address, String disc, String membership, boolean level, MemberList ml) {
+    public void registerMember(Member m, MemberList ml) {
     
-        ml.addMember(new Member(name, birth, address, disc, membership, level, ml));
+        ml.addMember(new Member(m.getName(), m.getDOB(), m.getAddress(), m.getDiscipline(), m.getType(), m.getActivityLevel(), ml));
     
     }
     
