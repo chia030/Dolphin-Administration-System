@@ -193,7 +193,7 @@ public class DAS_INTERFACE {
                 break;
                 
             case COACH:
-                homeCoach();
+                homeCoach(ml,rl);
                 break;
         
         }   
@@ -310,12 +310,13 @@ public class DAS_INTERFACE {
    
    }
    
-   public static void homeCoach() throws InterruptedException, FileNotFoundException {
+   public static void homeCoach(MemberList ml, ResultsList rl) throws InterruptedException, FileNotFoundException {
    
     boolean sentinel;
    
     System.out.println("\n\nWelcome Coach!\n\n");
     Coach coach = new Coach();
+    
     
 //  COACH HOME LOOP:    
     do {
@@ -323,11 +324,13 @@ public class DAS_INTERFACE {
         sentinel = false;
     
         System.out.println("\nPlease select one of the following options:\n");
-        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to VIEW RANKINGS\n- [C] to VIEW ALL MEMBERS IN TRAINING\n- [Q] to LOG OUT\n");
-    
+//        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to VIEW RANKINGS\n- [C] to VIEW ALL MEMBERS IN TRAINING\n- [Q] to LOG OUT\n");
+        System.out.println("\n- [A] to SHOW RESULTS\n- [B] to VIEW RANKINGS\n- [C] to VIEW MEMBERS\n- [Q] to LOG OUT\n");
+        
         switch (scan.next().toUpperCase()) {
         
             case "A":
+<<<<<<< HEAD
             sentinel = false;
 
             Scanner scan = new Scanner(System.in);
@@ -364,10 +367,21 @@ public class DAS_INTERFACE {
                 
             case "B":
                 coach.seeTop(); //pure not working depression
+=======
+                coach.viewResults(rl);
+                break;
+                
+            case "B":
+                coach.seeTop(ml,rl);
+>>>>>>> 7739d6caf2389177ce224f05e9b3a1cd17bb45e6
                 break;
             case "C":
+<<<<<<< HEAD
                 ResultsList reslist = new ResultsList();
                 reslist.printResults(); //same error as first one
+=======
+                coach.showMemberList(ml);
+>>>>>>> 7739d6caf2389177ce224f05e9b3a1cd17bb45e6
                 break;
                 
             case "Q":
@@ -392,7 +406,6 @@ public class DAS_INTERFACE {
     
     boolean sentinel = false;
     
-//scan.useDelimiter("\\n");
     
     Member member = new Member();
     
@@ -731,5 +744,14 @@ public class DAS_INTERFACE {
             
    
    }
+<<<<<<< HEAD
+=======
+   
+   public static void seeRank() { //help
+    }
+   
+   
+
+>>>>>>> 7739d6caf2389177ce224f05e9b3a1cd17bb45e6
 
 }
