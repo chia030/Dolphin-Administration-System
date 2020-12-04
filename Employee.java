@@ -43,7 +43,7 @@ public abstract class Employee {
                     break;
                     
                 case TREASURER:
-                    ml.printTrList();
+                    ml.printTrFullList();
                     break;
                     
                 case COACH:
@@ -56,6 +56,13 @@ public abstract class Employee {
              }
              
         }
+        
+        public boolean findMember(int ID, MemberList ml) {
+    
+        if (ml.findMember(ID) == null ) return false;
+        return true;
+    
+    }
 
 
     }

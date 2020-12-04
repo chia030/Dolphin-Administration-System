@@ -121,15 +121,21 @@ public class MemberList{
    
    
    //Prints the list that shows the unpaid members at the top and paid ones on the bottom (for the treasurer)
-    public void printTrList() {
+    public void printTrFullList() {
     
         for (Member i: members) {
-            if (!i.getValidity()) System.out.println(i);
+            if (!i.getValidity()) System.out.println(+i.getID()+" "+i.getName()+"\n"); // + NOT PAID
             }
             
         for (Member j: members) {
-            if (j.getValidity()) System.out.println(j);
+            if (j.getValidity()) System.out.println(j.getID()+" "+j.getName()+"\n"); // + PAID
         }
+    }
+    
+    public void printTrRedList() {
+            for (Member i: members) {
+                if (!i.getValidity()) System.out.println(i.getID()+" "+i.getName()+"\n");
+            }
     }
        
    

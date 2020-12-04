@@ -28,13 +28,14 @@ public class Member {
    private static LocalTime passiveHoursStart = LocalTime.parse("06:00");
    private static LocalTime passiveHoursEnd = LocalTime.parse("16:00");
    private boolean memCard = false;
+   private String lastPaymentMethod;
    
    
    public void setMembershipPrice(){
    
-      if (this.ageRange.equals("Junior") && this.activityLevel){
+      if (this.ageRange.equals("JUNIOR") && this.activityLevel){
          this.memPrice = 1000;
-      } else if (this.ageRange.equals("Senior") && this.activityLevel && this.memAge < 60){
+      } else if (this.ageRange.equals("SENIOR") && this.activityLevel && this.memAge < 60){
          this.memPrice = 1600;
       } else if (this.memAge >= 60 && this.activityLevel){
          this.memPrice = 1200;
@@ -42,7 +43,11 @@ public class Member {
          this.memPrice = memPrice;
       }
       
-   }  
+   }
+   
+   public int getPrice() {
+        return this.memPrice;
+   }
    
    public String toString() { 
       return "ID: " + this.memID + " \nName: " + this.memName + " \nDate of Birth: " 
@@ -228,6 +233,12 @@ public class Member {
    public boolean getValidity() { 
       return memValidity; 
    }
+   
+   public void setValidity() {
+   
+    this.memValidity = true;
+   
+   }
     
     
 
@@ -242,5 +253,10 @@ public class Member {
       return activityLevel; 
    }
     
+   public void setPaymentMethod(String pm) {
+   
+    this.lastPaymentMethod = pm;
+
+   }
 
 }

@@ -9,10 +9,7 @@ public class Coach extends Employee {
         super(UserType.COACH);
      
      }
-     
-     //making a results list
-     ResultsList rl = new ResultsList();
-     
+
      //entering results
      public void enterResult(){
     }
@@ -23,7 +20,7 @@ public class Coach extends Employee {
     }
     
     //viewin top 5 swimmers based on training/competition and later on based on entered discipline
-    public void seeTop() throws FileNotFoundException {
+    public void seeTop(MemberList ml) throws FileNotFoundException {
         Scanner scan = new Scanner(System.in);
         switch(scan.nextLine()){
             case "competition" : 

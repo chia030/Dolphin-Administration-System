@@ -228,11 +228,13 @@ public class DAS_INTERFACE {
                 break;
                 
             case "B":
-//                ml.saveToFile();
+                editMember(chairman, ml);
+                ml.saveToFile();
+                sentinel = true;
                 break;
                 
             case "C":
-                chairman.showMemberList(ml);
+                chairman.showMemberList(ml); //the list should be displayed more nicely and with less information :(
                 sentinel = true;
                 break;
                 
@@ -274,12 +276,19 @@ public class DAS_INTERFACE {
         switch (scan.next().toUpperCase()) {
         
             case "A":
+                newPayment(treasurer, ml);
+                ml.saveToFile();
+                sentinel = true;
                 break;
                 
             case "B":
+                ml.printTrRedList(); //then it should be able to select one and add payments maybe?? check SSD
+                sentinel = true;
                 break;
                 
             case "C":
+                treasurer.showMemberList(ml);
+                sentinel = true;
                 break;
                 
             case "Q":
@@ -382,7 +391,7 @@ public class DAS_INTERFACE {
                 //System.out.print(dayDOB+" / "+monthDOB+" / "+yearDOB);
                 } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); dayDOB=0; monthDOB=0; yearDOB=0; }
             
-         if (dayDOB>31 || dayDOB<1 || monthDOB>12 || monthDOB<1) { sentinel = true; System.out.println("\nThat's not a valid input!"); }
+         if (dayDOB>32 || dayDOB<1 || monthDOB>13 || monthDOB<1) { sentinel = true; System.out.println("\nThat's not a valid input!"); }
          
          // TRIES TO CREATE A ``LocalDate`` VALUE (OF memDOB) WITH THE GIVEN INPUT:
          try { member.setDOB_2(yearDOB, monthDOB, dayDOB); } catch (Exception e) { sentinel = true; System.out.println("\nThis format is invalid! :("); }
@@ -392,12 +401,13 @@ public class DAS_INTERFACE {
 
             
     System.out.print("\n\nAddress [STREET] [CITY] (no numbers) : "); //address //takes all sorts of ?!@ characters for now //doesn't like numbers //fix
+    
     address = scan.next();
     member.setAddress(address);
     
     do {
         sentinel = false;
-        System.out.print("\n\nPreferred Discipline: CHOOSE [1], [2], [3] OR [4].\n\n  1. BREASTSTROKE\n  2. FRONTCRAWL\n  3. BACKSTROKE\n  4. BUTTERFLY\n\n");
+        System.out.print("\n\nPreferred Discipline: CHOOSE [1], [2], [3] OR [4].\n\n  1. BREASTSTROKE\n  2. FRONTCRAWL\n  3. BACKSTROKE\n  4. BUTTERFLY\n\n\n");
         System.out.print("Your choice: ");
         
         try {
@@ -426,7 +436,7 @@ public class DAS_INTERFACE {
      
      do {
         sentinel = false;   
-        System.out.print("\n\nMembership Type: CHOOSE [1] OR [2].\n\n  1. EXERCISE\n  2. ELITE\n\n");
+        System.out.print("\n\nExercise Type: CHOOSE [1] OR [2].\n\n  1. EXERCISE\n  2. ELITE\n\n\n");
         System.out.print("Your choice: ");
         try {
         
@@ -447,7 +457,7 @@ public class DAS_INTERFACE {
      
      do {
         sentinel = false;   
-        System.out.println("\n\nMembership Level: CHOOSE [1] OR [2].\n\n  1. ACTIVE\n  2. PASSIVE\n\n");
+        System.out.println("\n\nMembership Level: CHOOSE [1] OR [2].\n\n  1. ACTIVE\n  2. PASSIVE\n\n\n");
         System.out.print("Your choice: ");
         try {
         
@@ -467,7 +477,7 @@ public class DAS_INTERFACE {
         } while (sentinel);
         
         String infoPrint = "Last Name: "+member.getName()+"\nDate of birth: "+member.getDOB()+"\nAddress: "+member.getAddress()+"\nPreferred Discipline: "+
-                           member.getDiscipline()+"\nMembership Type: "+member.getType()+"\nActive Membership: "+member.getActivityLevel(); 
+                           member.getDiscipline()+"\nExercise Type: "+member.getType()+"\nActive Membership: "+member.getActivityLevel(); 
         
         
         System.out.println("This is the information of the new member: \n\n");
@@ -511,16 +521,183 @@ public class DAS_INTERFACE {
         }
         
    } while (s);     
-   if (sentinel == false) System.out.println("\n\nThe new member has been added successfully!\n\n"); //add short pause
+   if (sentinel == false) System.out.println("\n\nThe new member has been added successfully!\n\n");
    
    Thread.sleep(SHORTPAUSE);
    System.out.println(CLEARCONSOLE);
    
    }
    
-   public static void editMember() {}
+// EDITS THE MEMBER INFO IN THE LIST (problems: doesn't ask for confirmation, should be displaying confirmation message at the end)
+// should also be working with the chairman class in order to make sure the membership class is updated when they change the membership level
+   public static void editMember(Chairman chairman, MemberList ml) throws InterruptedException {
    
-   public static void newPayment() {}
+   
+        boolean sentinel = false;
+        int ID = 0;
+        
+        Thread.sleep(SHORTPAUSE);
+        System.out.println(CLEARCONSOLE);
+        
+        do {
+             
+            System.out.print("\nWhose information would you like to change?\nMember ID: ");
+            ID = Integer.parseInt(scan.next());
+        
+            if (chairman.findMember(ID, ml))  { System.out.println("\n\n"+ml.findMember(ID).getName()+" corresponds to this ID.\n\n"); }
+            else { System.out.println ("\n\nUser not found :(\n\n"); Thread.sleep(SHORTPAUSE); sentinel = true; } //add go back option!
+            } while (sentinel);
+        
+        Thread.sleep(SHORTPAUSE);    
+        System.out.println(ml.findMember(ID));    
+        System.out.println("\n\nWhat would you like to change?\n");
+        System.out.println("\n\nCHOOSE [1], [2], [3] OR [4].\n\n  1. NAME\n  2. ADDRESS\n  3. PREFERRED DISCIPLINE\n  4. EXERCISE TYPE\n  5. MEMBERSHIP LEVEL\n\n\n");
+        
+            switch (Integer.parseInt(scan.next())) {
+            
+                case 1:
+                    System.out.print("\nPlease enter the member's new NAME: ");
+                    try { String n = scan.next(); ml.findMember(ID).setName(n); } catch (Exception e) { System.out.println("\nInvalid input!!\n"); return; }
+                    break;
+                
+                case 2:
+                    System.out.print("\nPlease enter the member's new ADDRESS: ");
+                    try { String a = scan.next(); ml.findMember(ID).setAddress(a); } catch (Exception e) { System.out.println("\nInvalid input!!\n"); return; }
+                    break;
+                    
+                case 3:
+                    System.out.println("\nPlease select the member's new PREFERRED DISCIPLINE: ");
+                    System.out.println("\n\n  1. BREASTSTROKE\n  2. FRONTCRAWL\n  3. BACKSTROKE\n  4. BUTTERFLY\n\n\n");
+                    
+                        switch (Integer.parseInt(scan.next())) {
+                        
+                            case 1:
+                                 ml.findMember(ID).setDiscipline("BREASTSTROKE");
+                                 break;
+                            case 2:
+                                 ml.findMember(ID).setDiscipline("FRONTCRAWL");
+                                 break;
+                            case 3:
+                                 ml.findMember(ID).setDiscipline("BACKSTROKE");
+                                 break;
+                            case 4:
+                                 ml.findMember(ID).setDiscipline("BUTTERFLY");
+                                 break;
+                            default:
+                                 System.out.println("\nInvalid input!!\n");
+                                 return;
+                          }
+                     break;
+                     
+                case 4:
+                    System.out.println("\nPlease enter the member's new EXERCISE TYPE: ");
+                    System.out.println("\n\n  1. EXERCISE\n  2. ELITE\n\n\n");
+                    
+                        switch(Integer.parseInt(scan.next())) {
+                        
+                            case 1:
+                                ml.findMember(ID).setType("EXERCISE"); 
+                                break;
+                            case 2:
+                                ml.findMember(ID).setType("ELITE");
+                                break;
+                            default:
+                                System.out.println("\nInvalid input!!\n");
+                                return;
+
+                        } 
+                    
+                    break;
+                    
+                case 5:
+                    System.out.println("\nPlease enter the member's new MEMBERSHIP LEVEL: ");
+                    System.out.println("\n\n  1. ACTIVE\n  2. PASSIVE\n\n\n");
+                    
+                    switch (Integer.parseInt(scan.next())) {  
+                        case 1:
+                            ml.findMember(ID).setActivityLevel(true);
+                            ml.findMember(ID).setMembershipPrice(); //updating the price
+                            break;
+                        case 2:
+                            ml.findMember(ID).setActivityLevel(false);
+                            ml.findMember(ID).setMembershipPrice(); //updating the price
+                            break;
+                        default:
+                            System.out.println("\nInvalid input!!\n");
+                            return;
+                     }
+                     break;
+                    
+                default:
+                    System.out.println("\nInvalid input!!\n");
+                    return;   
+            
+            
+            } //add confirmation
+
+   }
+   
+   public static void newPayment(Treasurer treasurer, MemberList ml) throws InterruptedException {
+
+        boolean sentinel = false;
+        
+           
+        
+            System.out.println("\n\nWhich member?\n\nMember ID: ");
+            int ID = Integer.parseInt(scan.next());
+        
+            if (!treasurer.findMember(ID, ml))  { System.out.println("\n\nUser not found :(\n\n"); return; }
+
+            System.out.println(ml.findMember(ID).getName()+" has "+treasurer.memberPrice(ml.findMember(ID), ml)+" left to pay.");
+            
+            if (ml.findMember(ID).getValidity()) { System.out.println("\n\nNothing to do here... \n\n"); Thread.sleep(SHORTPAUSE); return; }
+            
+            do {
+            
+            System.out.println("\n\nWould you like to add a new payment? [Y] or [N]\n\n"); //there should be a payment file but we don't have it yet
+            
+            sentinel = false;
+            
+            switch (scan.next().toUpperCase()) {
+            
+                case "Y":
+                    System.out.println("\n\nHow is the payment being received?\n");
+                    System.out.println("\n\n  1. CASH\n  2. CREDIT CARD\n  3. MOBILEPAY\n\n\n"); //this info would go in the payment history file although it's useless now
+                    
+                    switch (Integer.parseInt(scan.next())) {
+                        case 1:
+                            treasurer.registerPayment("CASH", ml.findMember(ID), ml);
+                            break;
+                        case 2:
+                            treasurer.registerPayment("CREDIT CARD", ml.findMember(ID), ml);
+                            break;
+                        case 3:
+                            treasurer.registerPayment("MOBILEPAY", ml.findMember(ID), ml);
+                            break;
+                        default:
+                            sentinel = true;
+                            System.out.println("\nInvalid input!!\n");
+                            
+                    }
+
+                    break;
+                    
+                case "N":
+                    return;
+                    
+                default:
+                    sentinel = true;
+                    System.out.println("\nInvalid input!!\n");
+  
+            
+            }
+            
+            } while (sentinel);
+            
+            System.out.println("\n\nPayment updated successfully!\n\n");
+            
+   
+   }
    
    
 

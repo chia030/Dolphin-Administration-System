@@ -16,28 +16,23 @@ public class Chairman extends Employee {
     
     }
     
-    public Member findMember(int ID, MemberList ml) {
-    
-        if (ml.findMember(ID) == null ) System.out.println("Member not found!");
-        return ml.findMember(ID);
-    
-    }
+
    
    
-    public void editMember(int ID, MemberList ml, int info) {
+    public void editMember(Member m, MemberList ml, int info) {
     
-        findMember(ID, ml);
+//        findMember(ID, ml);
         
-        switch(info) {
-        
-            case 1:
-                
-        
-        
-        
-        }
+//         switch(info) {
+//         
+//             case 1:
+//                 
+//         
+//         
+//         
+//         }
     
-    
+    //work in progress!
     
     }
    
