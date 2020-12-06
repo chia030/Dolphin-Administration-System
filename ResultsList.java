@@ -40,53 +40,50 @@ public class ResultsList {
         return results.size();
     }
         
-<<<<<<< HEAD
-=======
-    //method to enter result
-    public void enterResult(ResultsList rl, MemberList ml) throws FileNotFoundException {
-        
-        Scanner scan = new Scanner(System.in);
 
-        rl.addResult(new Result());
-        System.out.println("Enter Type(Competition/Training)");
-        rl.getIndex(getSize()-1).setType(scan.nextLine());
-        System.out.println("Enter ID");
-        rl.getIndex(getSize()-1).setID(scan.nextLine());
+//     //method to enter result
+//     public void enterResult(ResultsList rl, MemberList ml) throws FileNotFoundException {
+//         
+//  
+//         rl.addResult(new Result());
+//         System.out.println("Enter Type(Competition/Training)");
+//         rl.getIndex(getSize()-1).setType(scan.nextLine());
+//         System.out.println("Enter ID");
+//         rl.getIndex(getSize()-1).setID(scan.nextLine());
+// 
+//         for(int i=0;i<ml.getSize();i++){
+//             if(ml.getIndex(i).getID()==Integer.valueOf(rl.getIndex(getSize()-1).getID())){
+//                 rl.getIndex(getSize()-1).setName(ml.getIndex(i).getName());
+//             }
+//         }
+//         System.out.println("Enter Distance(100m/200m/400m)");
+//         rl.getIndex(getSize()-1).setDiscipline(scan.nextLine());
+// 
+//         System.out.println("Enter Time(Format minute.second)");
+//         rl.getIndex(getSize()-1).setTime(scan.nextLine());
+// 
+//         System.out.println("Enter Discipline(breaststroke,front crawl,backstroke,butterfly)");
+//         rl.getIndex(getSize()-1).setDiscipline(scan.nextLine());
+// 
+//         rl.getIndex(getSize()-1).setDate();
+//         scan.close();
+//         rl.saveToFile();
+// 
+//     }
 
-        for(int i=0;i<ml.getSize();i++){
-            if(ml.getIndex(i).getID()==Integer.valueOf(rl.getIndex(getSize()-1).getID())){
-                rl.getIndex(getSize()-1).setName(ml.getIndex(i).getName());
-            }
-        }
-        System.out.println("Enter Distance(100m/200m/400m)");
-        rl.getIndex(getSize()-1).setDiscipline(scan.nextLine());
-
-        System.out.println("Enter Time(Format minute.second)");
-        rl.getIndex(getSize()-1).setTime(scan.nextLine());
-
-        System.out.println("Enter Discipline(breaststroke,front crawl,backstroke,butterfly)");
-        rl.getIndex(getSize()-1).setDiscipline(scan.nextLine());
-
-        rl.getIndex(getSize()-1).setDate();
-        scan.close();
-        rl.saveToFile();
-
-    }
->>>>>>> 7739d6caf2389177ce224f05e9b3a1cd17bb45e6
-
-    //sort the results list from quickest time to longest
-    public void swap(){
-        int n = results.size();
-        for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (Double.parseDouble(results.get(j).getTime()) < Double.parseDouble(results.get(j + 1).getTime())) {
-                Result temp = results.get(j);
-                results.set(j, results.get(j + 1));
-                results.set(j + 1, temp);
-            }
-        }
-        }
-    }
+//     sort the results list from quickest time to longest
+//     public void swap(){
+//         int n = results.size();
+//         for (int i = 0; i < n - 1; i++) {
+//         for (int j = 0; j < n - i - 1; j++) {
+//             if (Double.parseDouble(results.get(j).getTime()) < Double.parseDouble(results.get(j + 1).getTime())) {
+//                 Result temp = results.get(j);
+//                 results.set(j, results.get(j + 1));
+//                 results.set(j + 1, temp);
+//             }
+//         }
+//         }
+//     }
     
 
     //adding results 
@@ -138,7 +135,7 @@ public class ResultsList {
       
       
       for (Result i: results) {
-            writer.println(i);
+            writer.println(i.toFile());
       }
       
       writer.close();      
@@ -148,7 +145,7 @@ public class ResultsList {
     //delete results from results list
     public void deleteResult(int ID){
         for(Result i: results){
-            if (i.getID().equals(ID)){
+            if (i.getID() == ID){
                 results.remove(i);
             }
         }   
@@ -161,13 +158,13 @@ public class ResultsList {
         }
      }
 
-    //print top 5 results
-    public void printTopResults(){
-        swap();
-        for(int i=0;i<=4;i++){
-            System.out.println(results.get(i));    
-        }
-    } 
+//     print top 5 results
+//     public void printTopResults(){
+//         swap();
+//         for(int i=0;i<=4;i++){
+//             System.out.println(results.get(i));    
+//         }
+//     } 
 
     
 }

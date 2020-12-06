@@ -30,6 +30,7 @@ public class DAS_INTERFACE {
     
 
    public static Scanner scan = new Scanner(System.in);
+   public static Scanner sc = new Scanner(System.in).useDelimiter("\\n");
    public static boolean s;
    
    
@@ -325,63 +326,25 @@ public class DAS_INTERFACE {
     
         System.out.println("\nPlease select one of the following options:\n");
 //        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to VIEW RANKINGS\n- [C] to VIEW ALL MEMBERS IN TRAINING\n- [Q] to LOG OUT\n");
-        System.out.println("\n- [A] to SHOW RESULTS\n- [B] to VIEW RANKINGS\n- [C] to VIEW MEMBERS\n- [Q] to LOG OUT\n");
+        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to SHOW RESULTS\n- [C] to VIEW MEMBERS\n- [Q] to LOG OUT\n");
         
         switch (scan.next().toUpperCase()) {
         
             case "A":
-<<<<<<< HEAD
-            sentinel = false;
-
-            Scanner scan = new Scanner(System.in);
-            MemberList ml = new MemberList();
-            ResultsList rl = new ResultsList();
-            Result result = new Result();
-    
-            System.out.println("Enter Type(Competition/Training)");
-            result.setType(scan.nextLine());
-            System.out.println("Enter ID");
-            result.setID(scan.nextLine());
-    
-            for(int i=0;i<ml.getSize();i++){
-                if(ml.getIndex(i).getID()==Integer.valueOf(result.getID())){
-                    result.setName(ml.getIndex(i).getName());
-                }
-            }
-            System.out.println("Enter Distance(100m/200m/400m)");
-            result.setDiscipline(scan.nextLine());
-    
-            System.out.println("Enter Time(Format minute.second)");
-            result.setTime(scan.nextLine());
-    
-            System.out.println("Enter Discipline(breaststroke,frontcrawl,backstroke,butterfly)");
-            result.setDiscipline(scan.nextLine());
-    
-            result.setDate();
-    
-            scan.close();
-    
-            rl.addResult(result); //this is where the error happens
-            rl.saveToFile();
+                newResult(coach, ml, rl);
+                rl.saveToFile();
+                sentinel = true;
                 break;
                 
             case "B":
-                coach.seeTop(); //pure not working depression
-=======
                 coach.viewResults(rl);
+                sentinel = true;
                 break;
                 
-            case "B":
-                coach.seeTop(ml,rl);
->>>>>>> 7739d6caf2389177ce224f05e9b3a1cd17bb45e6
-                break;
+
             case "C":
-<<<<<<< HEAD
-                ResultsList reslist = new ResultsList();
-                reslist.printResults(); //same error as first one
-=======
                 coach.showMemberList(ml);
->>>>>>> 7739d6caf2389177ce224f05e9b3a1cd17bb45e6
+                sentinel = true;
                 break;
                 
             case "Q":
@@ -409,14 +372,8 @@ public class DAS_INTERFACE {
     
     Member member = new Member();
     
-    String name;
-    String address;
-    int dayDOB=0;
-    int monthDOB=0;
-    int yearDOB=0;
-    int discipline=0;
-    int type=0;
-    int level=0;
+    String name, address;
+    int dayDOB=0, monthDOB=0, yearDOB=0, discipline=0, type=0, level=0;
 
     System.out.println(CLEARCONSOLE);
     
@@ -434,7 +391,6 @@ public class DAS_INTERFACE {
                 monthDOB = Integer.parseInt(scan.next());
                 System.out.print(dayDOB+" / "+monthDOB+" / ");
                 yearDOB = Integer.parseInt(scan.next());
-                //System.out.print(dayDOB+" / "+monthDOB+" / "+yearDOB);
                 } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); dayDOB=0; monthDOB=0; yearDOB=0; }
             
          if (dayDOB>32 || dayDOB<1 || monthDOB>13 || monthDOB<1) { sentinel = true; System.out.println("\nThat's not a valid input!"); }
@@ -444,10 +400,10 @@ public class DAS_INTERFACE {
             
          } while (sentinel);
         
-
             
-    System.out.print("\n\nAddress [STREET] [CITY] (no numbers) : "); //address //takes all sorts of ?!@ characters for now //doesn't like numbers //fix
+    System.out.print("\n\nAddress [STREET] (no numbers) : "); //address //takes all sorts of ?!@ characters for now //doesn't like numbers //fix
     
+    //address = sc.next(); //this scanner will take in the entire line (but the file method does not support that)
     address = scan.next();
     member.setAddress(address);
     
@@ -486,7 +442,7 @@ public class DAS_INTERFACE {
         System.out.print("Your choice: ");
         try {
         
-            switch(type = Integer.parseInt(scan.next())) {        //memType (as an ``int``)
+            switch(type = Integer.parseInt(scan.next())) {  //memType (as an ``int``)
                 case 1:
                     member.setType("EXERCISE"); //also setting the corresponding ``String``
                     break;
@@ -576,6 +532,7 @@ public class DAS_INTERFACE {
    
 // EDITS THE MEMBER INFO IN THE LIST (problems: doesn't ask for confirmation, should be displaying confirmation message at the end)
 // should also be working with the chairman class in order to make sure the membership class is updated when they change the membership level
+//add try - catch
    public static void editMember(Chairman chairman, MemberList ml) throws InterruptedException {
    
    
@@ -590,7 +547,7 @@ public class DAS_INTERFACE {
             System.out.print("\nWhose information would you like to change?\nMember ID: ");
             ID = Integer.parseInt(scan.next());
         
-            if (chairman.findMember(ID, ml))  { System.out.println("\n\n"+ml.findMember(ID).getName()+" corresponds to this ID.\n\n"); }
+            if (chairman.findMember(ID, ml))  { System.out.println("\n\n"+ml.findMember(ID).getName()+" corresponds to this ID.\n\n"); sentinel = false; }
             else { System.out.println ("\n\nUser not found :(\n\n"); Thread.sleep(SHORTPAUSE); sentinel = true; } //add go back option!
             } while (sentinel);
         
@@ -682,7 +639,8 @@ public class DAS_INTERFACE {
             } //add confirmation
 
    }
-   
+ 
+//add try-catch   
    public static void newPayment(Treasurer treasurer, MemberList ml) throws InterruptedException {
 
         boolean sentinel = false;
@@ -744,14 +702,134 @@ public class DAS_INTERFACE {
             
    
    }
-<<<<<<< HEAD
-=======
+
+//add try-catch   
+   public static void newResult(Coach coach, MemberList ml, ResultsList rl) throws InterruptedException { 
    
-   public static void seeRank() { //help
-    }
+        boolean sentinel = false;
+        
+        int ID=0;
+        double time=0.0;
+        
+        System.out.print("\n\nCreating a new result...\n\n\n");
+        
+        Result result = new Result();
+       
+        Thread.sleep(SHORTPAUSE);
+        System.out.println(CLEARCONSOLE);
+        
+        do {
+            sentinel = false; 
+            System.out.print("\nMember ID for the new result: ");
+            ID = Integer.parseInt(scan.next());
+        
+            if (coach.findMember(ID, ml))  { System.out.println("\n\n"+ml.findMember(ID).getName()+" corresponds to this ID.\n\n"); sentinel = false; }
+            else { System.out.println ("\n\nUser not found :(\n\n"); Thread.sleep(SHORTPAUSE); sentinel = true; } //add go back option!
+            } while (sentinel);
+            
+        Thread.sleep(SHORTPAUSE);
+        
+
+        result.setID(ID);
+       
+        System.out.println("\nCompetition or a training session?\n");
+        System.out.println("\n\n  1. COMPETITIVE\n  2. TRAINING\n\n\n");
+       
+        switch (Integer.parseInt(scan.next())) {  
+             case 1:
+                result.setType(true);
+                break;
+             case 2:
+                result.setType(false);
+                break;
+             default:
+                 System.out.println("\nInvalid input!!\n");
+                 return;
+         }
+         
+        System.out.println("\nWhat distance?\n");
+        System.out.println("\n\n  1. 100m\n  2. 200m\n  3. 400m\n\n\n");
+
+        switch (Integer.parseInt(scan.next())) {  
+             case 1:
+                result.setDistance(100);
+                break;
+             case 2:
+                result.setDistance(200);
+                break;
+             case 3:
+                result.setDistance(400);
+                break;
+             default:
+                 System.out.println("\nInvalid input!!\n");
+                 return;
+         }
+         
+         System.out.print("\nWhat is the recorded time? [00.00] ");
+         
+         try { time = Double.parseDouble(scan.next()); } catch (Exception e) { System.out.println("\nInvalid input!!\n"); return; }
+         
+         result.setTime(time);
+         
+         System.out.println("\nWhat discipline?");
+         System.out.println("\n\n  1. BREASTSTROKE\n  2. FRONTCRAWL\n  3. BACKSTROKE\n  4. BUTTERFLY\n\n\n");
+                    
+                        switch (Integer.parseInt(scan.next())) {
+                        
+                            case 1:
+                                 result.setDiscipline(1);
+                                 result.setDiscipline2(1);
+                                 break;
+                            case 2:
+                                 result.setDiscipline(2);
+                                 result.setDiscipline2(2);
+                                 break;
+                            case 3:
+                                 result.setDiscipline(3);
+                                 result.setDiscipline2(3);
+                                 break;
+                            case 4:
+                                 result.setDiscipline(4);
+                                 result.setDiscipline2(4);
+                                 break;
+                            default:
+                                 System.out.println("\nInvalid input!!\n");
+                                 return;
+                                 
+                          }
+                          
+           System.out.println("\nThis is the information you entered: \n\n");
+           System.out.println(result.newResultSummary(ml));
+           Thread.sleep(SHORTPAUSE);
+           
+           do {
+           
+           sentinel = false;
+           
+           System.out.println("\nConfirm? [Y] or [N]\n\n");
+           
+           switch (scan.next().toUpperCase()) {
+                case "Y":
+                    coach.enterResult(result, rl); //method located in Coach
+                    break;
+                case "N":
+                    System.out.println("\nExiting to home screen...\n");
+                    return;
+                default:
+                    System.out.println("\nInvalid input!!\n");
+                    sentinel = true;
+           }
+           
+           } while (sentinel);
+           
+           System.out.println("\n\nThe new result was added successfully!\n\n");
+           Thread.sleep(SHORTPAUSE);
+
+   }
+   
+   public static void seeTop() {}
    
    
 
->>>>>>> 7739d6caf2389177ce224f05e9b3a1cd17bb45e6
 
 }

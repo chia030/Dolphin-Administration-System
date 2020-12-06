@@ -144,10 +144,8 @@ public class Member {
    
    public String formatDOB() {
    
-    String prettyDOB = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(this.memDOB);
-    
-    return prettyDOB;
-   
+    return DateTimeFormatter.ofPattern("dd/MM/yyyy").format(this.memDOB);
+
    }
     
     

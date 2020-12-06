@@ -2,162 +2,148 @@ import java.time.format.DateTimeFormatter;
 import java.time.*;
 
 public class Result {
-    private String type;
-    private String distance;   
-    private String name;
-    private String time;
-    private String date;
-    private String discipline;
-    private String ID;
+
 
 // new result vars
     
-    public boolean typ; //true = competition, false = training
-    public int dist;
-    public LocalDate ddate;
-    public double tim;
-    public String disc; //maybe string in the future
-    public Member mem;
-    public int mID;
+    public int ID;
+    public boolean type; //true = competition, false = training
+    public int distance;
+    public LocalDate date;
+    public double time;
+    public int discipline;
+    public String discipline2;
+//    public Member mem; //is this needed??
     
     
-    // enterResult() new constructor
-    public Result(int mID, boolean typ, int discip, double tim, int disc) {
     
-        this.mID = mID;
-        this.typ = typ;
-        this.dist = dist;
-        this.tim = tim;
-        switch (discip) {
-            case 1: this.disc = "BREASTSTROKE"; break;
-            case 2: this.disc = "FRONTCRAWL"; break;
-            case 3: this.disc = "FRONTCRAWL"; break;
-            case 4: this.disc = "BUTTERFLY"; break;        
-        }
-        this.ddate = LocalDate.now();
+    // enterResult() CONSTRUCTOR
+    public Result(int ID, boolean type, int distance, double time, int discipline) {
     
-    }
-    
-    //resultlist new constructor
-    public Result(int mID, boolean typ, int dist, double tim, int discip, LocalDate ddate) {
-    
-        this.mID = mID;
-        this.typ = typ;
-        this.dist = dist;
-        this.tim = tim;
-        switch (discip) {
-            case 1: this.disc = "BREASTSTROKE"; break;
-            case 2: this.disc = "FRONTCRAWL"; break;
-            case 3: this.disc = "FRONTCRAWL"; break;
-            case 4: this.disc = "BUTTERFLY"; break;        
-        }
-        this.ddate = ddate;
-    
-    }
-     
-
-    //constructor when creating a result //I made a new one!
-    public Result(String type, String name, String ID, String distance,String time, String discipline){
+        this.ID = ID;
         this.type = type;
         this.distance = distance;
-        this.ID = ID;
-        this.name = name;
         this.time = time;
         this.discipline = discipline;
-        setDate();
+        setDiscipline2(discipline);
+        this.date = LocalDate.now();
+    
     }
     
+    //RESULTLIST CONSTRUCTOR
+    public Result(int ID, boolean type, int distance, double time, int discipline, LocalDate date) {
     
-
-    //constructor when reading from a file //I made a new one!
-    public Result(String type, String name, String ID, String date, String time, String distance,String discipline){
-        this.distance = distance;
-        this.type = type;
         this.ID = ID;
-        this.name = name;
+        this.type = type;
+        this.distance = distance;
         this.time = time;
         this.discipline = discipline;
         this.date = date;
+    
     }
 
-    //construct needed when entering a result
-    public Result(){
-
-    }
-
-
-    //getters and setters
-    public void setDistance(String distance){
+    //constructor needed when entering a result
+    public Result(){}
+ 
+    //getters and setters:
+    public void setDistance(int distance){
         this.distance = distance;
     }
 
-    public String getDistance(){
+    public int getDistance(){
         return distance;
     }
 
-    public void setType(String type){
+    public void setType(boolean type){
         this.type = type;
     }
 
-    public String getType(){
+    public boolean getType(){
         return type;
     }
-
-    public void setID(String ID){
-        this.ID = ID;
-    }
-
-    public String getID(){
-        return ID;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setTime(String time){
-        this.time = time;    
-    }
-
-    public String getTime(){
-        return time;
-    }
-
-    public void setDate(){
-        date = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now());
-    }
-
-    public String getDate(){
-        return date;
-    }
-
-    public void setDiscipline(String discipline){
-        this.discipline = discipline;
-    }
-
-    public String getDiscipline(){
-        return discipline;
-    }
     
+    // formatting the type``int`` into a readable String
     public String isCompetitive() {
     
-        if (this.typ) return "COMPETITIVE";
+        if (this.type) return "COMPETITIVE";
         return "TRAINING"; //if not
     }
 
-    //turn all info into string
-//     public String toString(){
-//         return getName()+" \n"+getType()+" \n"+getID()+"\n"+getDate()+"\n"+getTime()+"\n"+getDistance()+"\n"+getDiscipline();
-//     }
+    public void setID(int ID){
+        this.ID = ID;
+    }
 
-    public String toString() { //I had to make a new toString()
+    public int getID(){
+        return ID;
+    }
+
+
+    public void setTime(double time){
+        this.time = time;    
+    }
+
+    public double getTime(){
+        return time;
+    }
+
+    public void setDate(LocalDate d) {
+        this.date = d;
+    }
+
+
+    public LocalDate getDate(){
+        return date;
+    }
     
-        return "\n"+this.mID+"\n"+this.isCompetitive()+"\n"+this.dist+"m\n"+this.tim+"\n"+this.disc+"\n"+this.ddate+"\n\n\n";
+    public void setDiscipline(int disc) {
     
+        this.discipline = disc;
+    
+    }
+
+    public void setDiscipline2(int d){
+    
+         switch (d) {
+            case 1: this.discipline2 = "BREASTSTROKE"; break;
+            case 2: this.discipline2 = "FRONTCRAWL"; break;
+            case 3: this.discipline2 = "FRONTCRAWL"; break;
+            case 4: this.discipline2 = "BUTTERFLY"; break;        
+        }
+    }
+
+    public int getDiscipline(){
+        return discipline;
+    }
+    
+    public String getDiscipline2() {
+        return discipline2;    
+    }
+    
+    public String formatDATE() {
+    
+        return DateTimeFormatter.ofPattern("yyyy MM dd").format(this.date);
+    
+    }
+    
+    public String newResultSummary(MemberList ml) {
+    
+        return "\n"+ml.findMember(this.ID).getName()+" (ID: "+this.ID+")\n"+this.isCompetitive()+"\n"+this.distance+"m\n"
+               +this.time+" min\n"+this.discipline2+"\n\n\n";
+
+    }
+
+
+    public String toString() { //new toString()
+    
+        return "\n"+this.ID+"\n"+this.isCompetitive()+"\n"+this.distance+"m\n"+this.time+" min\n"+this.discipline2+"\n"+this.date+"\n\n\n";
+    
+    }
+ 
+//  METHOD TO SAVE INFO INTO ResultsList.txt  
+    public String toFile() {
+        
+        return this.ID+" "+this.type+" "+this.distance+" "+this.time+" "+this.discipline+" "+formatDATE();
+
     }
 
 }

@@ -147,6 +147,7 @@ public class MemberList{
           writer = new PrintWriter(fw);
       } catch (Exception e) { e.printStackTrace(); }
       
+      writer.print(" ");
       
       for (Member i: members) {
             writer.println(i.memberFileSave());
