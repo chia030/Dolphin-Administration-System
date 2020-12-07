@@ -124,17 +124,17 @@ public class MemberList{
     public void printTrFullList() {
     
         for (Member i: members) {
-            if (!i.getValidity()) System.out.println(+i.getID()+" "+i.getName()+"\n"); // + "NOT PAID"
+            if (!i.getValidity()) System.out.println(+i.getID()+" "+i.getName()+i.hasPaid()+"\n"); // + "NOT PAID"
             }
             
         for (Member j: members) {
-            if (j.getValidity()) System.out.println(j.getID()+" "+j.getName()+"\n"); // + "PAID"
+            if (j.getValidity()) System.out.println(j.getID()+" "+j.getName()+j.hasPaid()+"\n"); // + "PAID"
         }
     }
     
     public void printTrRedList() {
             for (Member i: members) {
-                if (!i.getValidity()) System.out.println(i.getID()+" "+i.getName()+"\n");
+                if (!i.getValidity()) System.out.println(i.getID()+" "+i.getName()+i.hasPaid()+"\n");
             }
     }
        
@@ -147,7 +147,6 @@ public class MemberList{
           writer = new PrintWriter(fw);
       } catch (Exception e) { e.printStackTrace(); }
       
-      writer.print(" ");
       
       for (Member i: members) {
             writer.println(i.memberFileSave());

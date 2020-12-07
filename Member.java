@@ -213,20 +213,27 @@ public class Member {
    }   
    
 // MAKES THE MEMBERSHIP CARD WORK IF PERMITTED: the passive members are only allowed to the pool at certain times!   
+
    public void setCard(){
       
-      if(this.memValidity == true && this.activityLevel == false && LocalTime.now().isAfter(this.passiveHoursStart) && LocalTime.now().isBefore(this.passiveHoursEnd)){
-         this.memCard = true;
-      } 
-      
-      else if(this.memValidity == true && this.activityLevel == false && LocalTime.now().isBefore(this.passiveHoursStart) || LocalTime.now().isAfter(this.passiveHoursEnd)){
-         this.memCard = false;
-      }  
-      else if(this.memValidity == true && this.activityLevel == true) {
-         this.memCard = true;
-      }
-      
+      if(this.memValidity == true 
+        && this.activityLevel == false 
+        && LocalTime.now().isAfter(this.passiveHoursStart) //06:00
+        || LocalTime.now().isBefore(this.passiveHoursEnd)) //16:00
+        { this.memCard = true; }
+         
+      else if(this.memValidity == true 
+             && this.activityLevel == false 
+             && LocalTime.now().isBefore(this.passiveHoursStart) 
+             || LocalTime.now().isAfter(this.passiveHoursEnd))
+             { this.memCard = false; }
+               
+      else if(this.memValidity == true 
+             && this.activityLevel == true) 
+             { this.memCard = true; }
    }
+   
+   
    
    public boolean getValidity() { 
       return memValidity; 
@@ -237,9 +244,6 @@ public class Member {
     this.memValidity = true;
    
    }
-    
-    
-
 
 // the ActivityLevel will be true when the membership is active and false when the membership is passive!
 // there will be a method in the Treasurer class to set it to true
@@ -255,6 +259,13 @@ public class Member {
    
     this.lastPaymentMethod = pm;
 
+   }
+   
+   public String hasPaid() {
+   
+    if (this.memValidity) return " - PAYMENT OKAY.";
+    else return " - PAYMENT NOT RECEIVED!!!";
+   
    }
 
 }

@@ -326,7 +326,7 @@ public class DAS_INTERFACE {
     
         System.out.println("\nPlease select one of the following options:\n");
 //        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to VIEW RANKINGS\n- [C] to VIEW ALL MEMBERS IN TRAINING\n- [Q] to LOG OUT\n");
-        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to SHOW RANK\n- [C] to VIEW MEMBERS\n- [Q] to LOG OUT\n");
+        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to SHOW RANK\n- [C] to VIEW TOP 5\n- [Q] to LOG OUT\n");
         
         switch (scan.next().toUpperCase()) {
         
@@ -337,13 +337,13 @@ public class DAS_INTERFACE {
                 break;
                 
             case "B":
-                seeTop(coach, rl);
+                viewFullRank(coach, rl);
                 sentinel = true;
                 break;
                 
 
             case "C":
-                coach.showMemberList(ml);
+                seeTop5(coach, rl);
                 sentinel = true;
                 break;
                 
@@ -393,7 +393,7 @@ public class DAS_INTERFACE {
                 yearDOB = Integer.parseInt(scan.next());
                 } catch (InputMismatchException e) { System.out.println("\nYou can only use numbers."); dayDOB=0; monthDOB=0; yearDOB=0; }
             
-         if (dayDOB>32 || dayDOB<1 || monthDOB>13 || monthDOB<1) { sentinel = true; System.out.println("\nThat's not a valid input!"); }
+         if (dayDOB>=32 || dayDOB<1 || monthDOB>13 || monthDOB<1) { sentinel = true; System.out.println("\nThat's not a valid input!"); }
          
          // TRIES TO CREATE A ``LocalDate`` VALUE (OF memDOB) WITH THE GIVEN INPUT:
          try { member.setDOB_2(yearDOB, monthDOB, dayDOB); } catch (Exception e) { sentinel = true; System.out.println("\nThis format is invalid! :("); }
@@ -827,18 +827,63 @@ public class DAS_INTERFACE {
 
    }
    
-   public static void seeTop(Coach coach, ResultsList rl) {
+   public static void viewFullRank(Coach coach, ResultsList rl) throws InterruptedException {
    
-        int disc=0, dist=0;
+        Result res = new Result();
    
-        System.out.print("Discipline: ");
-        disc = scan.nextInt();
-        System.out.print("Distance: ");
-        dist = scan.nextInt();
+        System.out.println("\nWhat discipline?");
+        System.out.println("\n\n  1. BREASTSTROKE\n  2. FRONTCRAWL\n  3. BACKSTROKE\n  4. BUTTERFLY\n\n\n");
+        switch(scan.nextInt()) {
+            case 1: res.setDiscipline(1); break;
+            case 2: res.setDiscipline(2); break;
+            case 3: res.setDiscipline(3); break;
+            case 4: res.setDiscipline(4); break;
+        }
+        res.setDiscipline2(res.getDiscipline()); 
+        System.out.println("\nWhat distance?\n");
+        System.out.println("\n\n  1. 100m\n  2. 200m\n  3. 400m\n\n\n");
+        switch(scan.nextInt()) {
+            case 1: res.setDistance(100); break;
+            case 2: res.setDistance(200); break;
+            case 3: res.setDistance(400); break;        
+        }
         
-        System.out.println(coach.viewDisciplineRank(dist, disc, rl));
+        System.out.println("\nRANK:\n\n");
+        
+        coach.viewDisciplineRank(res, rl);
+        
+        Thread.sleep(SHORTPAUSE);
 
        
+   }
+   
+   public static void seeTop5(Coach coach, ResultsList rl) throws InterruptedException {
+   
+       Result res = new Result();
+       
+        System.out.println("\nWhat discipline?");
+        System.out.println("\n\n  1. BREASTSTROKE\n  2. FRONTCRAWL\n  3. BACKSTROKE\n  4. BUTTERFLY\n\n\n");
+        switch(scan.nextInt()) {
+            case 1: res.setDiscipline(1); break;
+            case 2: res.setDiscipline(2); break;
+            case 3: res.setDiscipline(3); break;
+            case 4: res.setDiscipline(4); break;
+        }
+        res.setDiscipline2(res.getDiscipline()); 
+        System.out.println("\nWhat distance?\n");
+        System.out.println("\n\n  1. 100m\n  2. 200m\n  3. 400m\n\n\n");
+        switch(scan.nextInt()) {
+            case 1: res.setDistance(100); break;
+            case 2: res.setDistance(200); break;
+            case 3: res.setDistance(400); break;        
+        }
+        
+        System.out.println("\nTOP 5:\n\n");
+        
+        coach.viewTop5(res, rl);
+        
+        Thread.sleep(SHORTPAUSE);
+
    }
    
    

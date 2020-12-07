@@ -1,5 +1,6 @@
 import java.time.format.DateTimeFormatter;
 import java.time.*;
+import java.util.*;
 
 public class Result {
 
@@ -42,7 +43,6 @@ public class Result {
         this.date = date;
     
     }
-
     //constructor needed when entering a result
     public Result(){}
  
@@ -136,7 +136,8 @@ public class Result {
 
     public String toString() { //new toString()
     
-        return "\n"+this.ID+"\n"+this.isCompetitive()+"\n"+this.distance+"m\n"+this.time+" min\n"+this.discipline2+"\n"+this.date+"\n\n\n";
+        return this.ID+" "+this.isCompetitive()+" "+this.distance+"m "+this.time+" min "+this.discipline2+" "+this.date;
+//         return "\n"+this.ID+" "+this.isCompetitive()+" "+this.distance+"m "+this.time+" min "+this.discipline2+" "+this.date+"\n\n\n";
     
     }
  
@@ -145,6 +146,18 @@ public class Result {
         
         return this.ID+" "+this.type+" "+this.distance+" "+this.time+" "+this.discipline+" "+formatDATE();
 
+    }
+    
+        public static Result compare(Result r1, Result r2) {
+    
+        double time1 = (r1.getTime()), time2 = (r2.getTime());
+        
+        if (time1 < time2) return r1;
+        
+        else if (time2 < time1) return r2;
+        
+        else return null;
+    
     }
 
 }

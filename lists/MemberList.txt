@@ -1,4 +1,4 @@
- 3012 Karlsen 1954 2 20 Vesterskovvej frontcrawl elite true 2020 4 4 true
+3012 Karlsen 1954 2 20 Vesterskovvej frontcrawl elite true 2020 4 4 true
 7118 Rodgers 1980 5 9 Panska butterfly exercise false 2005 3 18 true
 9534 Wilder 2000 1 1 Banikova breaststroke exercise false 2018 8 8 true
 1254 Maldonado 1995 5 16 Pupavova butterfly elite true 2006 1 5 true
@@ -22,3 +22,4 @@
 3256 Flynn 2005 8 28 Segnerova butterfly elite true 2020 6 16 true
 4714 Howard 1982 11 11 Borska frontcrawl elite true 2020 7 17 true
 5357 Stone 1991 9 17 Karloveska frontcrawl exercise true 2020 8 18 true
+10285 sfasfsa 2389 12 30 shjaksjbfkajs BACKSTROKE EXERCISE false 2020 12 7 true

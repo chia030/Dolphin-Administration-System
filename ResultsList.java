@@ -16,17 +16,17 @@ public class ResultsList {
         
         File file = new File(DAS.RESULTLISTFILE);
         resultsFile();
-        results = new ArrayList<Result>();        
+        results = new ArrayList<Result>(); 
+        sortedResults = new ArrayList<Result>();     
         loadResults(file);
-        sortedResults = new ArrayList<Result>();
         sortList(); 
         
        }
     
     //constructor when making a results list for separate disciplines
-    public ResultsList(boolean help) { 
-        results = new ArrayList<Result>();        
-       }
+//     public ResultsList(boolean help) { 
+//         results = new ArrayList<Result>();        
+//        }
 
     //method to get results
     public ArrayList<Result> getResults(){
@@ -47,6 +47,7 @@ public class ResultsList {
     //adding results 
     public void addResult(Result result){
         results.add(result);
+        sortedResults.add(result);
     }
     
     public void resultsFile() {
@@ -80,34 +81,43 @@ public class ResultsList {
 
         }
         
-    public Result compareResults() {
-        
-        for (Result i: results) {
-            for (Result j: results) { if (i.getTime() < j.getTime()) return i; }
-        }
-        
-        return null; //if there are no results in the list
-    } 
-    
-    public void sortList() {  sortedResults.add(compareResults());   }
-    
-    
-    public Result getRank(int distance, int discipline) {
-    
-        for (Result i: sortedResults) {
-            if (i.getDiscipline()==discipline && i.getDistance()==distance) return i;
-        }
-        
-        return null;
+
+    public void sortList() {  
+
+//             for (Result i: sortedResults) {
+//                 for (Result j: sortedResults) { if (i.getTime() < j.getTime()) sortedResults.set(sortedResults.getIndex(i)-1, i);
+//                                                 else if (i.getTime() == j.getTime()) sortedResults.set(sortedResults.getIndex(i), i);
+//                                                 else sortedResults.set(sortedResults.getIndex(i)+1, i);
+// 
+//             }
+//             }
+
+        Collections.sort(sortedResults, (a, b) -> a.time < b.time ? -1 : a.time == b.time ? 0 : 1);
     
     }
     
-    public Result getTop5(int distance, int discipline) {
     
-        for(int i=0;i<=4;i++) { if ( sortedResults.get(i).getDiscipline()==discipline && sortedResults.get(i).getDistance()==distance) return sortedResults.get(i); }
+    public void getRank(Result r) {
         
-        return null;
+        int j = 1;
     
+        for (Result i: sortedResults) {
+            if (i.getDiscipline()==r.getDiscipline() && i.getDistance()==r.getDistance()) {
+                System.out.println(j+". "+i);
+                j++;
+            }
+        }
+    
+    }
+    
+    public void getTop5(Result r) {
+    
+        for(int i=0;i<=4;i++) { 
+            if (sortedResults.get(i).getDiscipline()==r.getDiscipline() && sortedResults.get(i).getDistance()==r.getDistance()) {
+                System.out.println(i+" "+sortedResults.get(i)); 
+            }
+        }
+
     }
 
     //save ResultsList to file when closing the program
@@ -128,12 +138,12 @@ public class ResultsList {
         
     }
     
-    //delete results from results list
+    //delete results from both results lists
     public void deleteResult(int ID){
         for(Result i: results){
             for (Result j: sortedResults) {
                 if (i.getID() == ID){
-                    results.remove(i);
+                    this.results.remove(i);
                 }
             }
         }   

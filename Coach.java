@@ -4,7 +4,7 @@ import java.io.*;
 public class Coach extends Employee {
 
 
-     public Coach() throws FileNotFoundException {
+     public Coach() {
 
         super(UserType.COACH);
      
@@ -57,13 +57,13 @@ public class Coach extends Employee {
     }
     
     
-    public String viewTop5(int distance, int discipline, ResultsList rl) {
+    public void viewTop5(Result r, ResultsList rl) {
             
-            return rl.getTop5(distance, discipline).toString();
+            rl.getTop5(r);
     }
     
-    public String viewDisciplineRank(int distance, int discipline, ResultsList rl) {
+    public void viewDisciplineRank(Result r, ResultsList rl) {
             
-            return rl.getRank(distance, discipline).toString();
+           rl.getRank(r);
     }
 }

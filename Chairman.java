@@ -26,11 +26,9 @@ public class Chairman extends Employee {
 //         switch(info) {
 //         
 //             case 1:
-//                 
-//         
-//         
-//         
 //         }
+
+
     
     //work in progress!
     
