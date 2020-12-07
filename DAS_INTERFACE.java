@@ -836,7 +836,7 @@ public class DAS_INTERFACE {
         System.out.print("Distance: ");
         dist = scan.nextInt();
         
-        coach.viewDisciplineRank(dist, disc, rl);
+        System.out.println(coach.viewDisciplineRank(dist, disc, rl));
 
        
    }

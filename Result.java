@@ -38,6 +38,7 @@ public class Result {
         this.distance = distance;
         this.time = time;
         this.discipline = discipline;
+        setDiscipline2(discipline);
         this.date = date;
     
     }
