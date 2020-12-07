@@ -106,7 +106,7 @@ public class Result {
          switch (d) {
             case 1: this.discipline2 = "BREASTSTROKE"; break;
             case 2: this.discipline2 = "FRONTCRAWL"; break;
-            case 3: this.discipline2 = "FRONTCRAWL"; break;
+            case 3: this.discipline2 = "BACKSTROKE"; break;
             case 4: this.discipline2 = "BUTTERFLY"; break;        
         }
     }

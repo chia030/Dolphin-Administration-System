@@ -9,6 +9,7 @@ public class ResultsList {
 
     //making an array list
     private ArrayList<Result> results;
+    private ArrayList<Result> sortedResults;
     
     //constructor when creating a main arraylist
     public ResultsList() {
@@ -16,7 +17,9 @@ public class ResultsList {
         File file = new File(DAS.RESULTLISTFILE);
         resultsFile();
         results = new ArrayList<Result>();        
-        loadResults(file); 
+        loadResults(file);
+        sortedResults = new ArrayList<Result>();
+        sortList(); 
         
        }
     
@@ -40,51 +43,6 @@ public class ResultsList {
         return results.size();
     }
         
-
-//     //method to enter result
-//     public void enterResult(ResultsList rl, MemberList ml) throws FileNotFoundException {
-//         
-//  
-//         rl.addResult(new Result());
-//         System.out.println("Enter Type(Competition/Training)");
-//         rl.getIndex(getSize()-1).setType(scan.nextLine());
-//         System.out.println("Enter ID");
-//         rl.getIndex(getSize()-1).setID(scan.nextLine());
-// 
-//         for(int i=0;i<ml.getSize();i++){
-//             if(ml.getIndex(i).getID()==Integer.valueOf(rl.getIndex(getSize()-1).getID())){
-//                 rl.getIndex(getSize()-1).setName(ml.getIndex(i).getName());
-//             }
-//         }
-//         System.out.println("Enter Distance(100m/200m/400m)");
-//         rl.getIndex(getSize()-1).setDiscipline(scan.nextLine());
-// 
-//         System.out.println("Enter Time(Format minute.second)");
-//         rl.getIndex(getSize()-1).setTime(scan.nextLine());
-// 
-//         System.out.println("Enter Discipline(breaststroke,front crawl,backstroke,butterfly)");
-//         rl.getIndex(getSize()-1).setDiscipline(scan.nextLine());
-// 
-//         rl.getIndex(getSize()-1).setDate();
-//         scan.close();
-//         rl.saveToFile();
-// 
-//     }
-
-//     sort the results list from quickest time to longest
-//     public void swap(){
-//         int n = results.size();
-//         for (int i = 0; i < n - 1; i++) {
-//         for (int j = 0; j < n - i - 1; j++) {
-//             if (Double.parseDouble(results.get(j).getTime()) < Double.parseDouble(results.get(j + 1).getTime())) {
-//                 Result temp = results.get(j);
-//                 results.set(j, results.get(j + 1));
-//                 results.set(j + 1, temp);
-//             }
-//         }
-//         }
-//     }
-    
 
     //adding results 
     public void addResult(Result result){
@@ -121,8 +79,36 @@ public class ResultsList {
          } catch (Exception e) { e.printStackTrace(); } 
 
         }
-
-
+        
+    public Result compareResults() {
+        
+        for (Result i: results) {
+            for (Result j: results) { if (i.getTime() < j.getTime()) return i; }
+        }
+        
+        return null; //if there are no results in the list
+    } 
+    
+    public void sortList() {  sortedResults.add(compareResults());   }
+    
+    
+    public Result getRank(int distance, int discipline) {
+    
+        for (Result i: sortedResults) {
+            if (i.getDiscipline()==discipline && i.getDistance()==distance) return i;
+        }
+        
+        return null;
+    
+    }
+    
+    public Result getTop5(int distance, int discipline) {
+    
+        for(int i=0;i<=4;i++) { if ( sortedResults.get(i).getDiscipline()==discipline && sortedResults.get(i).getDistance()==distance) return sortedResults.get(i); }
+        
+        return null;
+    
+    }
 
     //save ResultsList to file when closing the program
     public void saveToFile(){
@@ -145,26 +131,26 @@ public class ResultsList {
     //delete results from results list
     public void deleteResult(int ID){
         for(Result i: results){
-            if (i.getID() == ID){
-                results.remove(i);
+            for (Result j: sortedResults) {
+                if (i.getID() == ID){
+                    results.remove(i);
+                }
             }
         }   
     }
 
-    //print all results to console
-    public void printResults(){
+    //print all results
+    public void printResultList(ArrayList<Result> rl){
+        for (Result i: rl){
+           System.out.println(i);
+        }
+     }
+     
+     public void printResults(){
         for (Result i: results){
            System.out.println(i);
         }
      }
-
-//     print top 5 results
-//     public void printTopResults(){
-//         swap();
-//         for(int i=0;i<=4;i++){
-//             System.out.println(results.get(i));    
-//         }
-//     } 
 
     
 }

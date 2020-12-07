@@ -326,7 +326,7 @@ public class DAS_INTERFACE {
     
         System.out.println("\nPlease select one of the following options:\n");
 //        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to VIEW RANKINGS\n- [C] to VIEW ALL MEMBERS IN TRAINING\n- [Q] to LOG OUT\n");
-        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to SHOW RESULTS\n- [C] to VIEW MEMBERS\n- [Q] to LOG OUT\n");
+        System.out.println("\n- [A] to REGISTER NEW RESULT\n- [B] to SHOW RANK\n- [C] to VIEW MEMBERS\n- [Q] to LOG OUT\n");
         
         switch (scan.next().toUpperCase()) {
         
@@ -337,7 +337,7 @@ public class DAS_INTERFACE {
                 break;
                 
             case "B":
-                coach.viewResults(rl);
+                seeTop(coach, rl);
                 sentinel = true;
                 break;
                 
@@ -401,7 +401,7 @@ public class DAS_INTERFACE {
          } while (sentinel);
         
             
-    System.out.print("\n\nAddress [STREET] (no numbers) : "); //address //takes all sorts of ?!@ characters for now //doesn't like numbers //fix
+    System.out.print("\n\nAddress [CITY] (no numbers) : "); //address //takes all sorts of ?!@ characters for now //doesn't like numbers //fix
     
     //address = sc.next(); //this scanner will take in the entire line (but the file method does not support that)
     address = scan.next();
@@ -827,7 +827,19 @@ public class DAS_INTERFACE {
 
    }
    
-   public static void seeTop() {}
+   public static void seeTop(Coach coach, ResultsList rl) {
+   
+        int disc=0, dist=0;
+   
+        System.out.print("Discipline: ");
+        disc = scan.nextInt();
+        System.out.print("Distance: ");
+        dist = scan.nextInt();
+        
+        coach.viewDisciplineRank(dist, disc, rl);
+
+       
+   }
    
    
 
