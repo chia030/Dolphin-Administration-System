@@ -111,10 +111,13 @@ public class ResultsList {
     }
     
     public void getTop5(Result r) {
+        
+        int j = 1;
     
-        for(int i=0;i<=4;i++) { 
-            if (sortedResults.get(i).getDiscipline()==r.getDiscipline() && sortedResults.get(i).getDistance()==r.getDistance()) {
-                System.out.println(i+" "+sortedResults.get(i)); 
+        for(Result i: sortedResults) { 
+            if (i.getDiscipline()==r.getDiscipline() && i.getDistance()==r.getDistance() && j<=5) {
+                System.out.println(j+". "+i);
+                j++; 
             }
         }
 
